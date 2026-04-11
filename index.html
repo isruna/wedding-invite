@@ -3,617 +3,284 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
-  <meta http-equiv="Pragma" content="no-cache"/>
-  <meta http-equiv="Expires" content="0"/>
   <title>Wedding Invitation — Aiden & Sophia</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&family=EB+Garamond:ital@0;1&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --gold: #b8965a; --gold-light: #d4b483; --gold-pale: #f0e4cc;
-      --cream: #fdf8f0; --dark: #2a1f14; --text: #3d2b1f;
+      --sky:        #e8f4ff;
+      --sky-mid:    #cce5ff;
+      --sky-deep:   #a8cdf5;
+      --blue:       #4a90d9;
+      --blue-mid:   #3a7bd5;
+      --blue-dark:  #2d5fa8;
+      --white:      #ffffff;
+      --text:       #2a4a70;
+      --text-light: #5a80aa;
+      --border:     #c2daf5;
     }
     html { scroll-behavior: smooth; }
-    body { background: var(--cream); color: var(--text); font-family: 'EB Garamond', serif; line-height: 1.6; }
+    body {
+      background: var(--white);
+      color: var(--text);
+      font-family: 'EB Garamond', serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
 
-    /* ══ COVER ══ */
+    /* ══ COVER — still dark navy for contrast on cover only ══ */
     #cover {
       position: fixed; inset: 0; z-index: 1000;
-      background: linear-gradient(135deg, #1a1410 0%, #2a1f14 50%, #1a1410 100%);
+      background: linear-gradient(160deg, #1e3d6e 0%, #2a5298 60%, #1e3d6e 100%);
       display: flex; flex-direction: column;
       align-items: center; justify-content: center;
       text-align: center; padding: 40px 28px;
-      transition: transform 1.2s cubic-bezier(0.76, 0, 0.24, 1), opacity 1s;
+      transition: transform 1.2s cubic-bezier(0.76,0,0.24,1), opacity 1s;
+      overflow: hidden;
     }
     #cover.open { transform: translateY(-100%); opacity: 0; }
     #cover::before {
       content: ''; position: absolute; inset: 0;
-      background: radial-gradient(ellipse 80% 60% at 50% 30%, rgba(184,150,90,0.15) 0%, transparent 70%);
+      background: radial-gradient(ellipse 80% 60% at 50% 25%, rgba(168,205,245,0.2) 0%, transparent 65%);
       pointer-events: none;
     }
     #cover::after {
       content: ''; position: absolute;
-      left: 30px; right: 30px; top: 30px; bottom: 30px;
-      border: 1px solid rgba(184,150,90,0.25); pointer-events: none;
+      left: 28px; right: 28px; top: 28px; bottom: 28px;
+      border: 1px solid rgba(168,205,245,0.3); pointer-events: none;
     }
-
     .cover-eyebrow {
-      font-family: 'Cinzel', serif; font-size: 0.65rem;
+      font-family: 'Cinzel', serif; font-size: 0.62rem;
       letter-spacing: 0.4em; text-transform: uppercase;
-      color: var(--gold); margin-bottom: 32px;
+      color: var(--sky-deep); margin-bottom: 32px;
       opacity: 0; animation: coverUp 1s 0.3s ease both;
     }
     .cover-couple {
       font-family: 'Cormorant Garamond', serif;
       font-size: clamp(3.5rem, 14vw, 7rem);
       font-weight: 300; font-style: italic;
-      color: #f5ede0; line-height: 0.9;
+      color: #e8f4ff; line-height: 0.9;
       opacity: 0; animation: coverUp 1.1s 0.5s ease both;
     }
-    .cover-amp { 
-      font-size: 0.6em; color: var(--gold); margin: 0 12px; 
-      display: inline-block; transform: translateY(-10px);
-    }
+    .cover-amp { font-size: 0.6em; color: var(--sky-deep); margin: 0 12px; display: inline-block; transform: translateY(-10px); }
     .cover-divider {
       display: flex; align-items: center; gap: 16px;
-      justify-content: center; margin: 32px auto;
-      width: 180px;
+      justify-content: center; margin: 28px auto; width: 180px;
       opacity: 0; animation: coverUp 0.9s 0.8s ease both;
     }
-    .cover-divider span { height: 1px; flex: 1; background: rgba(184,150,90,0.5); }
-
+    .cover-divider span { height: 1px; flex: 1; background: rgba(168,205,245,0.45); }
     .cover-guest-label {
       font-family: 'EB Garamond', serif; font-style: italic;
-      font-size: 1rem; color: rgba(245,237,224,0.6);
-      margin-bottom: 8px;
+      font-size: 1rem; color: rgba(232,244,255,0.6); margin-bottom: 8px;
       opacity: 0; animation: coverUp 0.8s 1s ease both;
     }
     .cover-guest-name {
       font-family: 'Cormorant Garamond', serif;
       font-size: clamp(1.6rem, 5vw, 2.4rem); font-weight: 300;
-      color: var(--gold-light); margin-bottom: 48px;
+      color: var(--sky-deep); margin-bottom: 44px;
       opacity: 0; animation: coverUp 0.9s 1.1s ease both;
     }
-
     .open-btn {
       display: inline-flex; align-items: center; gap: 12px;
-      padding: 20px 56px; background: transparent;
-      border: 1px solid var(--gold); color: var(--gold-light);
-      font-family: 'Cinzel', serif; font-size: 0.75rem;
+      padding: 18px 52px; background: transparent;
+      border: 1px solid var(--sky-deep); color: var(--sky-deep);
+      font-family: 'Cinzel', serif; font-size: 0.72rem;
       letter-spacing: 0.3em; text-transform: uppercase;
-      cursor: pointer; position: relative; overflow: hidden;
-      transition: color 0.4s;
+      cursor: pointer; position: relative; overflow: hidden; transition: color 0.4s;
       opacity: 0; animation: coverUp 1s 1.3s ease both;
     }
     .open-btn::before {
       content: ''; position: absolute; inset: 0;
-      background: var(--gold); transform: translateY(101%);
-      transition: transform 0.4s cubic-bezier(0.76, 0, 0.24, 1); z-index: 0;
+      background: var(--sky-deep); transform: translateY(101%);
+      transition: transform 0.4s cubic-bezier(0.76,0,0.24,1); z-index: 0;
     }
     .open-btn:hover::before { transform: translateY(0); }
-    .open-btn:hover { color: var(--dark); }
+    .open-btn:hover { color: #1e3d6e; }
     .open-btn span, .open-btn svg { position: relative; z-index: 1; }
-
+    .cover-countdown { margin-top: 36px; opacity: 0; animation: coverUp 0.9s 1.5s ease both; }
+    .cover-countdown-text {
+      font-family: 'Cinzel', serif; font-size: 0.58rem;
+      letter-spacing: 0.28em; text-transform: uppercase;
+      color: var(--sky-deep); opacity: 0.8; margin-bottom: 14px;
+    }
+    .cover-countdown-timer { display: flex; justify-content: center; gap: 16px; }
+    .cover-cd-unit { text-align: center; min-width: 56px; }
+    .cover-cd-number { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 300; color: #e8f4ff; display: block; line-height: 1; }
+    .cover-cd-label { font-family: 'Cinzel', serif; font-size: 0.48rem; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(168,205,245,0.65); margin-top: 4px; display: block; }
     @keyframes coverUp {
       from { opacity: 0; transform: translateY(20px); }
       to   { opacity: 1; transform: translateY(0); }
     }
 
-    /* ══ COVER COUNTDOWN ══ */
-    .cover-countdown {
-      margin-top: 40px;
-      opacity: 0;
-      animation: coverUp 0.9s 1.5s ease both;
-    }
-    .cover-countdown-text {
-      font-family: 'Cinzel', serif;
-      font-size: 0.6rem;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 16px;
-    }
-    .cover-countdown-timer {
-      display: flex;
-      justify-content: center;
-      gap: 16px;
-    }
-    .cover-cd-unit {
-      text-align: center;
-      min-width: 60px;
-    }
-    .cover-cd-number {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 2rem;
-      font-weight: 300;
-      color: var(--gold-light);
-      display: block;
-      line-height: 1;
-    }
-    .cover-cd-label {
-      font-family: 'Cinzel', serif;
-      font-size: 0.5rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: rgba(184,150,90,0.7);
-      margin-top: 4px;
-      display: block;
-    }
-
-    /* ══ MUSIC PLAYER ══ */
+    /* ══ MUSIC ══ */
     .music-toggle {
-      position: fixed; bottom: 30px; right: 30px;
-      width: 50px; height: 50px;
-      background: var(--dark); border: 1px solid var(--gold);
+      position: fixed; bottom: 28px; right: 28px;
+      width: 48px; height: 48px;
+      background: var(--white); border: 1px solid var(--border);
       border-radius: 50%; cursor: pointer; z-index: 999;
       display: flex; align-items: center; justify-content: center;
       transition: transform 0.3s, box-shadow 0.3s;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      box-shadow: 0 4px 16px rgba(74,144,217,0.15);
     }
-    .music-toggle:hover { transform: scale(1.1); box-shadow: 0 0 20px rgba(184,150,90,0.4); }
+    .music-toggle:hover { transform: scale(1.1); box-shadow: 0 0 20px rgba(74,144,217,0.3); }
     .music-toggle.playing { animation: pulse 2s infinite; }
     @keyframes pulse {
-      0%, 100% { box-shadow: 0 0 0 0 rgba(184,150,90,0.4); }
-      50% { box-shadow: 0 0 0 10px rgba(184,150,90,0); }
+      0%,100% { box-shadow: 0 0 0 0 rgba(74,144,217,0.3); }
+      50%      { box-shadow: 0 0 0 10px rgba(74,144,217,0); }
     }
-    .music-toggle svg { width: 20px; height: 20px; fill: var(--gold); }
+    .music-toggle svg { width: 20px; height: 20px; fill: var(--blue); }
 
-    /* ══ MAIN CONTENT ══ */
+    /* ══ INVITATION SECTIONS ══ */
     #invitation { min-height: 100vh; }
-    .page {
-      max-width: 900px; 
-      margin: 0 auto;
-      padding: 60px 28px 80px;
-    }
-    .fade-in {
-      opacity: 0; 
-      transform: translateY(30px);
-      transition: opacity 0.8s ease, transform 0.8s ease;
-    }
-    .fade-in.visible {
-      opacity: 1; 
-      transform: translateY(0);
+    .fade-in { opacity: 0; transform: translateY(28px); transition: opacity 0.8s ease, transform 0.8s ease; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+    .section-title {
+      font-family: 'Cinzel', serif; font-size: 0.72rem;
+      letter-spacing: 0.4em; color: var(--blue);
+      text-transform: uppercase; text-align: center; margin-bottom: 52px;
     }
 
-    /* ══ HERO PHOTO ══ */
-    .hero-photo {
-      position: relative; height: 100vh; min-height: 600px;
-      background: linear-gradient(to bottom, rgba(42,31,20,0.3), rgba(42,31,20,0.5)), 
-                  url('https://images.unsplash.com/photo-1519741497674-611481863552?w=1920&q=80') center/cover;
-      display: flex; align-items: center; justify-content: center;
-      text-align: center; color: white;
-    }
-    .hero-content {
-      position: relative; z-index: 2;
-      padding: 40px;
-      border: 1px solid rgba(255,255,255,0.2);
-      background: rgba(0,0,0,0.2);
-      backdrop-filter: blur(4px);
-    }
-    .hero-content::before, .hero-content::after {
-      content: ''; position: absolute;
-      width: 40px; height: 40px;
-      border: 1px solid var(--gold);
-    }
-    .hero-content::before { top: 10px; left: 10px; border-right: none; border-bottom: none; }
-    .hero-content::after { bottom: 10px; right: 10px; border-left: none; border-top: none; }
+    /* ── FLORAL SVG helper ── */
+    .floral-divider { display: flex; align-items: center; justify-content: center; gap: 12px; margin: 0 auto; }
+    .floral-divider .line { height: 1px; background: var(--border); flex: 1; max-width: 100px; }
 
-    .hero-names {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(3rem, 10vw, 6rem);
-      font-weight: 300; font-style: italic;
-      line-height: 1; margin-bottom: 20px;
+    /* ══ HERO ══ */
+    .hero-banner {
+      background: linear-gradient(180deg, var(--sky) 0%, var(--white) 100%);
+      padding: 80px 28px 70px; text-align: center; position: relative; overflow: hidden;
     }
-    .hero-date {
-      font-family: 'Cinzel', serif;
-      font-size: 1rem; letter-spacing: 0.4em;
-      color: var(--gold-light);
+    .hero-floral-tl, .hero-floral-tr, .hero-floral-bl, .hero-floral-br {
+      position: absolute; width: 220px; height: 220px; opacity: 0.35;
     }
+    .hero-floral-tl { top: 0; left: 0; }
+    .hero-floral-tr { top: 0; right: 0; transform: scaleX(-1); }
+    .hero-floral-bl { bottom: 0; left: 0; transform: scaleY(-1); }
+    .hero-floral-br { bottom: 0; right: 0; transform: scale(-1,-1); }
+    .hero-inner { position: relative; z-index: 2; }
+    .hero-label { font-family: 'Cinzel', serif; font-size: 0.62rem; letter-spacing: 0.4em; text-transform: uppercase; color: var(--blue); opacity: 0.75; margin-bottom: 18px; }
+    .hero-names { font-family: 'Cormorant Garamond', serif; font-size: clamp(3rem, 10vw, 6rem); font-weight: 300; font-style: italic; color: var(--blue-dark); line-height: 1; margin-bottom: 18px; }
+    .hero-names .amp { color: var(--blue); margin: 0 10px; font-size: 0.75em; }
+    .hero-date { font-family: 'Cinzel', serif; font-size: 0.85rem; letter-spacing: 0.35em; color: var(--text-light); }
+    .hero-border {
+      display: inline-block; padding: 40px 56px;
+      border: 1px solid var(--border); position: relative;
+    }
+    .hero-border::before, .hero-border::after {
+      content: ''; position: absolute; width: 32px; height: 32px; border: 1px solid var(--sky-deep);
+    }
+    .hero-border::before { top: 10px; left: 10px; border-right: none; border-bottom: none; }
+    .hero-border::after  { bottom: 10px; right: 10px; border-left: none; border-top: none; }
 
     /* ══ QUOTE ══ */
-    .quote-section {
-      padding: 100px 28px; text-align: center;
-      background: linear-gradient(to bottom, var(--cream), #f5ede0);
-      position: relative;
-    }
+    .quote-section { padding: 80px 28px; background: var(--white); text-align: center; position: relative; }
     .quote-section::before {
       content: '"'; font-family: 'Cormorant Garamond', serif;
-      font-size: 8rem; color: var(--gold); opacity: 0.15;
-      position: absolute; top: 40px; left: 50%;
-      transform: translateX(-50%);
+      font-size: 8rem; color: var(--sky-mid); opacity: 0.8;
+      position: absolute; top: 20px; left: 50%; transform: translateX(-50%); line-height: 1; pointer-events: none;
     }
-    .quote-text {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(1.3rem, 3vw, 1.8rem);
-      font-style: italic; color: var(--text);
-      max-width: 600px; margin: 0 auto 20px;
-      line-height: 1.8;
-    }
-    .quote-source {
-      font-family: 'Cinzel', serif;
-      font-size: 0.8rem; color: var(--gold);
-      letter-spacing: 0.2em;
-    }
+    .quote-text { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.2rem, 2.8vw, 1.65rem); font-style: italic; color: var(--text); max-width: 580px; margin: 0 auto 18px; line-height: 1.85; position: relative; z-index: 1; }
+    .quote-source { font-family: 'Cinzel', serif; font-size: 0.7rem; color: var(--blue); letter-spacing: 0.2em; }
 
-    /* ══ COUPLE INFO ══ */
-    .couple-section {
-      padding: 80px 28px; background: white;
-    }
-    .section-title {
-      font-family: 'Cinzel', serif;
-      font-size: 0.75rem; letter-spacing: 0.4em;
-      color: var(--gold); text-transform: uppercase;
-      text-align: center; margin-bottom: 60px;
-    }
-    .couple-container {
-      max-width: 900px; margin: 0 auto;
-      display: grid; grid-template-columns: 1fr auto 1fr;
-      gap: 40px; align-items: center;
-    }
-    @media(max-width:768px) {
-      .couple-container { grid-template-columns: 1fr; gap: 40px; }
-      .couple-divider { transform: rotate(90deg); margin: 20px 0; }
-    }
+    /* ══ COUPLE ══ */
+    .couple-section { padding: 80px 28px; background: var(--sky); position: relative; overflow: hidden; }
+    .couple-floral { position: absolute; opacity: 0.15; }
+    .couple-container { max-width: 820px; margin: 0 auto; display: grid; grid-template-columns: 1fr auto 1fr; gap: 40px; align-items: center; position: relative; z-index: 1; }
+    @media(max-width:700px) { .couple-container { grid-template-columns: 1fr; gap: 32px; } }
     .person { text-align: center; }
-    .person-photo {
-      width: 200px; height: 200px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 3px solid var(--gold);
-      margin: 0 auto 24px;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+    .person-avatar {
+      width: 110px; height: 110px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--blue-mid) 0%, var(--sky-deep) 100%);
+      margin: 0 auto 22px;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Cormorant Garamond', serif; font-size: 2.8rem; font-weight: 300; font-style: italic; color: white;
+      border: 3px solid var(--white);
+      box-shadow: 0 6px 24px rgba(74,144,217,0.2);
     }
-    .person-name {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 2rem; font-weight: 300;
-      color: var(--dark); margin-bottom: 8px;
-    }
-    .person-role {
-      font-family: 'Cinzel', serif;
-      font-size: 0.7rem; color: var(--gold);
-      letter-spacing: 0.2em; margin-bottom: 16px;
-    }
-    .person-desc {
-      font-size: 0.95rem; color: #666;
-      max-width: 280px; margin: 0 auto;
-    }
-    .couple-divider {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 3rem; color: var(--gold);
-      font-style: italic;
-    }
+    .person-name { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 300; color: var(--blue-dark); margin-bottom: 6px; }
+    .person-role { font-family: 'Cinzel', serif; font-size: 0.62rem; color: var(--blue); letter-spacing: 0.2em; margin-bottom: 12px; }
+    .person-desc { font-size: 0.95rem; color: var(--text-light); max-width: 260px; margin: 0 auto; }
+    .couple-divider { font-family: 'Cormorant Garamond', serif; font-size: 3.5rem; color: var(--sky-deep); font-style: italic; text-align: center; }
 
-    /* ══ EVENT DETAILS ══ */
-    .event-section {
-      padding: 100px 28px;
-      background: linear-gradient(135deg, #2a1f14 0%, #1a1410 100%);
-      color: white; position: relative;
-      overflow: hidden;
+    /* ══ EVENTS — LIGHT ══ */
+    .event-section { padding: 80px 28px; background: var(--white); position: relative; overflow: hidden; }
+    .event-section-bg {
+      position: absolute; inset: 0; pointer-events: none;
+      background: linear-gradient(180deg, var(--white) 0%, var(--sky) 100%);
     }
-    .event-section::before {
-      content: ''; position: absolute;
-      inset: 0;
-      background: url('https://www.transparenttextures.com/patterns/cubes.png');
-      opacity: 0.03;
-    }
-    .event-container {
-      max-width: 1000px; margin: 0 auto;
-      position: relative; z-index: 1;
-    }
-    .event-title {
-      font-family: 'Cinzel', serif;
-      text-align: center; font-size: 0.8rem;
-      letter-spacing: 0.4em; color: var(--gold);
-      margin-bottom: 60px;
-    }
-    .event-grid {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 30px;
-    }
+    .event-container { max-width: 900px; margin: 0 auto; position: relative; z-index: 1; }
+    .event-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; }
     .event-card {
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(184,150,90,0.2);
-      padding: 40px 30px; text-align: center;
+      background: var(--white); border: 1px solid var(--border);
+      padding: 40px 28px; text-align: center;
       transition: transform 0.3s, box-shadow 0.3s;
+      position: relative; overflow: hidden;
     }
-    .event-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-      border-color: rgba(184,150,90,0.4);
+    .event-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--sky-deep), var(--blue-mid));
     }
-    .event-icon {
-      font-size: 2.5rem; margin-bottom: 20px;
-      display: block;
-    }
-    .event-name {
-      font-family: 'Cinzel', serif;
-      font-size: 1.2rem; color: var(--gold-light);
-      letter-spacing: 0.1em; margin-bottom: 16px;
-    }
-    .event-date {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.5rem; font-style: italic;
-      color: white; margin-bottom: 8px;
-    }
-    .event-time {
-      font-size: 1rem; color: rgba(255,255,255,0.7);
-      margin-bottom: 20px;
-    }
-    .event-location {
-      font-size: 0.95rem; color: rgba(255,255,255,0.8);
-      line-height: 1.6;
-    }
-    .event-location strong {
-      color: var(--gold-light); display: block;
-      margin-bottom: 4px; font-weight: 600;
-    }
+    .event-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(74,144,217,0.12); }
+    .event-icon { font-size: 2.2rem; margin-bottom: 18px; display: block; }
+    .event-name { font-family: 'Cinzel', serif; font-size: 1rem; color: var(--blue-dark); letter-spacing: 0.1em; margin-bottom: 16px; }
+    .event-date { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-style: italic; color: var(--text); margin-bottom: 6px; }
+    .event-time { font-size: 1rem; color: var(--text-light); margin-bottom: 18px; }
+    .event-location { font-size: 0.95rem; color: var(--text); line-height: 1.65; }
+    .event-location strong { color: var(--blue-dark); display: block; margin-bottom: 4px; font-weight: 600; }
     .map-btn {
-      display: inline-block; margin-top: 16px;
-      padding: 10px 24px;
-      border: 1px solid var(--gold);
-      color: var(--gold-light); text-decoration: none;
-      font-family: 'Cinzel', serif; font-size: 0.7rem;
-      letter-spacing: 0.15em; transition: all 0.3s;
+      display: inline-block; margin-top: 16px; padding: 10px 24px;
+      border: 1px solid var(--blue); color: var(--blue);
+      text-decoration: none; font-family: 'Cinzel', serif;
+      font-size: 0.62rem; letter-spacing: 0.15em; transition: all 0.3s;
     }
-    .map-btn:hover {
-      background: var(--gold); color: var(--dark);
-    }
-
-    /* ══ GALLERY ══ */
-    .gallery-section {
-      padding: 100px 28px; background: white;
-    }
-    .gallery-grid {
-      max-width: 1000px; margin: 0 auto;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 15px;
-    }
-    @media(max-width:768px) {
-      .gallery-grid { grid-template-columns: repeat(2, 1fr); }
-    }
-    .gallery-item {
-      aspect-ratio: 1;
-      overflow: hidden; cursor: pointer;
-      position: relative;
-    }
-    .gallery-item img {
-      width: 100%; height: 100%; object-fit: cover;
-      transition: transform 0.5s;
-    }
-    .gallery-item:hover img { transform: scale(1.1); }
-    .gallery-item::after {
-      content: '+'; position: absolute;
-      inset: 0; background: rgba(42,31,20,0.5);
-      display: flex; align-items: center; justify-content: center;
-      color: white; font-size: 2rem; opacity: 0;
-      transition: opacity 0.3s;
-    }
-    .gallery-item:hover::after { opacity: 1; }
-
-    /* ══ LIGHTBOX ══ */
-    .lightbox {
-      position: fixed; inset: 0; z-index: 2000;
-      background: rgba(0,0,0,0.95);
-      display: none; align-items: center; justify-content: center;
-      padding: 20px;
-    }
-    .lightbox.active { display: flex; }
-    .lightbox img {
-      max-width: 90%; max-height: 90vh;
-      object-fit: contain;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
-    }
-    .lightbox-close {
-      position: absolute; top: 30px; right: 30px;
-      width: 50px; height: 50px;
-      background: transparent; border: 1px solid rgba(255,255,255,0.3);
-      color: white; font-size: 2rem; cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
-      transition: all 0.3s;
-    }
-    .lightbox-close:hover {
-      border-color: var(--gold); color: var(--gold);
-    }
-
-    /* ══ RSVP ══ */
-    .rsvp-section {
-      padding: 100px 28px;
-      background: linear-gradient(to bottom, #f5ede0, var(--cream));
-    }
-    .rsvp-container {
-      max-width: 600px; margin: 0 auto;
-      background: white;
-      padding: 60px 40px;
-      border: 1px solid rgba(184,150,90,0.3);
-      box-shadow: 0 20px 60px rgba(0,0,0,0.08);
-    }
-    .rsvp-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 2.5rem; font-weight: 300;
-      text-align: center; margin-bottom: 12px;
-      color: var(--dark);
-    }
-    .rsvp-subtitle {
-      text-align: center; color: #888;
-      font-style: italic; margin-bottom: 40px;
-    }
-    .form-group { margin-bottom: 24px; }
-    .form-group label {
-      display: block;
-      font-family: 'Cinzel', serif;
-      font-size: 0.7rem; letter-spacing: 0.15em;
-      color: var(--gold); margin-bottom: 8px;
-      text-transform: uppercase;
-    }
-    .form-group input,
-    .form-group select,
-    .form-group textarea {
-      width: 100%; padding: 14px 16px;
-      border: 1px solid #e0d5c5;
-      background: #faf8f5;
-      font-family: 'EB Garamond', serif;
-      font-size: 1rem; color: var(--text);
-      transition: border-color 0.3s;
-    }
-    .form-group input:focus,
-    .form-group select:focus,
-    .form-group textarea:focus {
-      outline: none; border-color: var(--gold);
-    }
-    .form-group textarea {
-      min-height: 100px; resize: vertical;
-    }
-    .radio-group {
-      display: flex; gap: 20px;
-    }
-    .radio-label {
-      display: flex; align-items: center; gap: 8px;
-      cursor: pointer;
-    }
-    .radio-label input[type="radio"] {
-      width: auto; accent-color: var(--gold);
-    }
-    .submit-btn {
-      width: 100%; padding: 18px;
-      background: var(--dark); color: white;
-      border: none; cursor: pointer;
-      font-family: 'Cinzel', serif;
-      font-size: 0.8rem; letter-spacing: 0.2em;
-      text-transform: uppercase;
-      transition: all 0.3s;
-    }
-    .submit-btn:hover {
-      background: var(--gold); color: var(--dark);
-    }
+    .map-btn:hover { background: var(--blue); color: white; }
 
     /* ══ WISHES ══ */
-    .wishes-section {
-      padding: 100px 28px; background: white;
-      max-height: 600px; overflow-y: auto;
-    }
-    .wishes-container {
-      max-width: 700px; margin: 0 auto;
-    }
-    .wish-card {
-      background: #faf8f5;
-      border-left: 3px solid var(--gold);
-      padding: 24px 28px; margin-bottom: 20px;
-      position: relative;
-    }
-    .wish-header {
-      display: flex; justify-content: space-between;
-      align-items: center; margin-bottom: 12px;
-    }
-    .wish-name {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.3rem; font-weight: 600;
-      color: var(--dark);
-    }
-    .wish-date {
-      font-size: 0.8rem; color: #999;
-    }
-    .wish-text {
-      color: #555; line-height: 1.7;
-      font-style: italic;
-    }
+    .wishes-section { padding: 80px 28px; background: var(--sky); position: relative; overflow: hidden; }
+    .wishes-container { max-width: 700px; margin: 0 auto; display: flex; flex-direction: column; gap: 18px; }
+    .wish-card { background: var(--white); border: 1px solid var(--border); border-left: 3px solid var(--sky-deep); padding: 22px 26px; }
+    .wish-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+    .wish-name { font-family: 'Cinzel', serif; font-size: 0.65rem; letter-spacing: 0.15em; color: var(--blue); text-transform: uppercase; }
+    .wish-date { font-size: 0.85rem; color: var(--text-light); font-style: italic; }
+    .wish-text { font-size: 1rem; color: var(--text); line-height: 1.7; }
 
-    /* ══ GIFT ══ */
-    .gift-section {
-      padding: 100px 28px;
-      background: linear-gradient(135deg, #2a1f14 0%, #1a1410 100%);
-      color: white; text-align: center;
-    }
-    .gift-text {
-      max-width: 500px; margin: 0 auto 40px;
-      color: rgba(255,255,255,0.8);
-      line-height: 1.8;
-    }
-    .bank-cards {
-      display: flex; justify-content: center;
-      gap: 30px; flex-wrap: wrap;
-      max-width: 800px; margin: 0 auto;
-    }
-    .bank-card {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(184,150,90,0.3);
-      padding: 30px 40px; min-width: 280px;
-    }
-    .bank-name {
-      font-family: 'Cinzel', serif;
-      font-size: 1rem; color: var(--gold);
-      letter-spacing: 0.1em; margin-bottom: 16px;
-    }
+    /* ══ GIFT — LIGHT ══ */
+    .gift-section { padding: 80px 28px; background: var(--white); text-align: center; position: relative; overflow: hidden; }
+    .gift-text { font-family: 'EB Garamond', serif; font-style: italic; font-size: 1.1rem; color: var(--text-light); max-width: 560px; margin: 0 auto 44px; line-height: 1.8; }
+    .bank-cards { display: flex; justify-content: center; gap: 24px; flex-wrap: wrap; max-width: 700px; margin: 0 auto; }
+    .bank-card { background: var(--sky); border: 1px solid var(--border); padding: 32px 36px; min-width: 240px; text-align: center; transition: box-shadow 0.3s; }
+    .bank-card:hover { box-shadow: 0 8px 24px rgba(74,144,217,0.12); }
+    .bank-name { font-family: 'Cinzel', serif; font-size: 0.62rem; letter-spacing: 0.25em; color: var(--blue); margin-bottom: 16px; text-transform: uppercase; }
     .bank-number {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.8rem; letter-spacing: 0.05em;
-      margin-bottom: 8px; cursor: pointer;
-      transition: color 0.3s;
+      font-family: 'EB Garamond', serif; /* normal readable font */
+      font-size: 1.5rem; font-weight: 400;
+      color: var(--text); letter-spacing: 0.12em;
+      margin-bottom: 6px; cursor: pointer;
     }
-    .bank-number:hover { color: var(--gold-light); }
-    .bank-holder {
-      font-size: 0.9rem; color: rgba(255,255,255,0.6);
-      margin-bottom: 16px;
-    }
+    .bank-holder { font-size: 0.95rem; color: var(--text-light); margin-bottom: 20px; }
     .copy-btn {
-      padding: 8px 20px;
-      background: transparent;
-      border: 1px solid var(--gold);
-      color: var(--gold-light); cursor: pointer;
-      font-family: 'Cinzel', serif; font-size: 0.65rem;
-      letter-spacing: 0.15em; transition: all 0.3s;
+      padding: 10px 28px; background: transparent; border: 1px solid var(--blue);
+      color: var(--blue); font-family: 'Cinzel', serif;
+      font-size: 0.6rem; letter-spacing: 0.18em; cursor: pointer; transition: all 0.3s;
     }
-    .copy-btn:hover {
-      background: var(--gold); color: var(--dark);
-    }
+    .copy-btn:hover { background: var(--blue); color: white; }
 
     /* ══ FOOTER ══ */
-    .footer {
-      padding: 60px 28px; text-align: center;
-      background: var(--cream);
-      border-top: 1px solid rgba(184,150,90,0.2);
-    }
-    .footer-names {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 2rem; font-style: italic;
-      color: var(--dark); margin-bottom: 12px;
-    }
-    .footer-text {
-      font-size: 0.9rem; color: #888;
-      margin-bottom: 24px;
-    }
-    .social-links {
-      display: flex; justify-content: center;
-      gap: 16px; margin-bottom: 40px;
-    }
-    .social-link {
-      width: 44px; height: 44px;
-      border: 1px solid rgba(184,150,90,0.4);
-      display: flex; align-items: center; justify-content: center;
-      color: var(--gold); text-decoration: none;
-      transition: all 0.3s;
-    }
-    .social-link:hover {
-      background: var(--gold); color: white;
-    }
-    .copyright {
-      font-size: 0.75rem; color: #aaa;
-    }
+    .footer { background: var(--sky); padding: 70px 28px 50px; text-align: center; position: relative; overflow: hidden; }
+    .footer-names { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.2rem, 6vw, 3.5rem); font-weight: 300; font-style: italic; color: var(--blue-dark); margin-bottom: 14px; }
+    .footer-text { font-family: 'EB Garamond', serif; font-style: italic; font-size: 1.1rem; color: var(--text-light); margin-bottom: 36px; }
+    .social-links { display: flex; justify-content: center; gap: 14px; margin-bottom: 36px; }
+    .social-link { width: 42px; height: 42px; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; color: var(--blue); text-decoration: none; transition: all 0.3s; }
+    .social-link:hover { background: var(--blue); color: white; border-color: var(--blue); }
+    .copyright { font-size: 0.75rem; color: var(--text-light); }
 
     /* ══ PETALS ══ */
-    .petal {
-      position: fixed; width: 10px; height: 14px;
-      border-radius: 50% 0 50% 0;
-      background: rgba(212,180,131,0.4);
-      pointer-events: none; z-index: 1;
-      animation: fall linear infinite;
-    }
+    .petal { position: fixed; width: 9px; height: 13px; border-radius: 50% 0 50% 0; background: rgba(100,160,230,0.3); pointer-events: none; z-index: 1; animation: fall linear infinite; }
     @keyframes fall {
       0%   { transform: translateY(-40px) rotate(0deg); opacity:0; }
       10%  { opacity:1; }
-      90%  { opacity:0.5; }
+      90%  { opacity:0.4; }
       100% { transform: translateY(110vh) rotate(400deg); opacity:0; }
     }
   </style>
@@ -628,198 +295,245 @@
   <svg viewBox="0 0 24 24" id="musicIcon"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
 </button>
 
-<!-- ══ COVER SCREEN ══ -->
+<!-- ══ COVER ══ -->
 <div id="cover">
   <p class="cover-eyebrow">You are cordially invited to</p>
-  <div class="cover-couple">Aiden<span class="cover-amp">&</span>Sophia</div>
+  <div class="cover-couple">Aiden<span class="cover-amp">&amp;</span>Sophia</div>
   <div class="cover-divider">
     <span></span>
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="#b8965a">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="#a8cdf5">
       <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
     </svg>
     <span></span>
   </div>
   <p class="cover-guest-label">Dear</p>
   <p class="cover-guest-name" id="coverGuestName">Valued Guest</p>
-
   <button class="open-btn" onclick="openInvitation()">
     <span>Open Invitation</span>
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-      <path d="M12 5v14M5 12l7 7 7-7"/>
-    </svg>
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
   </button>
-
-  <!-- Countdown below button -->
   <div class="cover-countdown">
     <p class="cover-countdown-text">Counting down to June 14, 2026</p>
     <div class="cover-countdown-timer">
-      <div class="cover-cd-unit">
-        <span class="cover-cd-number" id="cover-cd-days">00</span>
-        <span class="cover-cd-label">Days</span>
-      </div>
-      <div class="cover-cd-unit">
-        <span class="cover-cd-number" id="cover-cd-hours">00</span>
-        <span class="cover-cd-label">Hours</span>
-      </div>
-      <div class="cover-cd-unit">
-        <span class="cover-cd-number" id="cover-cd-min">00</span>
-        <span class="cover-cd-label">Mins</span>
-      </div>
-      <div class="cover-cd-unit">
-        <span class="cover-cd-number" id="cover-cd-sec">00</span>
-        <span class="cover-cd-label">Secs</span>
-      </div>
+      <div class="cover-cd-unit"><span class="cover-cd-number" id="cover-cd-days">00</span><span class="cover-cd-label">Days</span></div>
+      <div class="cover-cd-unit"><span class="cover-cd-number" id="cover-cd-hours">00</span><span class="cover-cd-label">Hours</span></div>
+      <div class="cover-cd-unit"><span class="cover-cd-number" id="cover-cd-min">00</span><span class="cover-cd-label">Mins</span></div>
+      <div class="cover-cd-unit"><span class="cover-cd-number" id="cover-cd-sec">00</span><span class="cover-cd-label">Secs</span></div>
     </div>
   </div>
 </div>
 
-<!-- ══ MAIN INVITATION ══ -->
+<!-- ══ INVITATION ══ -->
 <div id="invitation">
 
-  <!-- Hero Photo -->
-  <section class="hero-photo">
-    <div class="hero-content">
-      <h1 class="hero-names">Aiden & Sophia</h1>
-      <p class="hero-date">June 14, 2026</p>
+  <!-- Floral SVG definitions (reusable) -->
+  <svg width="0" height="0" style="position:absolute">
+    <defs>
+      <!-- Floral branch used in corners -->
+    </defs>
+  </svg>
+
+  <!-- HERO -->
+  <section class="hero-banner">
+    <!-- Corner florals -->
+    <svg class="hero-floral-tl" viewBox="0 0 220 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M20 20 Q80 20 80 80 Q80 20 140 20" stroke="#4a90d9" stroke-width="1" fill="none"/>
+      <path d="M20 20 Q20 80 80 80 Q20 80 20 140" stroke="#4a90d9" stroke-width="1" fill="none"/>
+      <circle cx="80" cy="80" r="4" fill="#4a90d9" opacity="0.5"/>
+      <path d="M80 80 Q110 40 160 25" stroke="#4a90d9" stroke-width="0.8" fill="none"/>
+      <path d="M80 80 Q40 110 25 160" stroke="#4a90d9" stroke-width="0.8" fill="none"/>
+      <path d="M80 80 Q120 55 145 35" stroke="#4a90d9" stroke-width="0.6" fill="none"/>
+      <path d="M80 80 Q55 120 35 145" stroke="#4a90d9" stroke-width="0.6" fill="none"/>
+      <!-- leaves -->
+      <ellipse cx="158" cy="28" rx="10" ry="5" fill="#a8cdf5" opacity="0.6" transform="rotate(-35 158 28)"/>
+      <ellipse cx="140" cy="38" rx="9" ry="4" fill="#a8cdf5" opacity="0.5" transform="rotate(-55 140 38)"/>
+      <ellipse cx="122" cy="52" rx="8" ry="4" fill="#cce5ff" opacity="0.5" transform="rotate(-45 122 52)"/>
+      <ellipse cx="28" cy="158" rx="5" ry="10" fill="#a8cdf5" opacity="0.6" transform="rotate(-35 28 158)"/>
+      <ellipse cx="38" cy="140" rx="4" ry="9" fill="#a8cdf5" opacity="0.5" transform="rotate(-55 38 140)"/>
+      <ellipse cx="52" cy="122" rx="4" ry="8" fill="#cce5ff" opacity="0.5" transform="rotate(-45 52 122)"/>
+      <!-- flowers -->
+      <circle cx="163" cy="23" r="5" fill="#e8f4ff" stroke="#4a90d9" stroke-width="0.8" opacity="0.7"/>
+      <circle cx="163" cy="23" r="2" fill="#4a90d9" opacity="0.5"/>
+      <circle cx="26" cy="163" r="5" fill="#e8f4ff" stroke="#4a90d9" stroke-width="0.8" opacity="0.7"/>
+      <circle cx="26" cy="163" r="2" fill="#4a90d9" opacity="0.5"/>
+      <!-- tiny dots -->
+      <circle cx="105" cy="35" r="2" fill="#a8cdf5" opacity="0.5"/>
+      <circle cx="118" cy="28" r="1.5" fill="#a8cdf5" opacity="0.4"/>
+      <circle cx="35" cy="105" r="2" fill="#a8cdf5" opacity="0.5"/>
+      <circle cx="28" cy="118" r="1.5" fill="#a8cdf5" opacity="0.4"/>
+    </svg>
+    <svg class="hero-floral-tr" viewBox="0 0 220 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M20 20 Q80 20 80 80 Q80 20 140 20" stroke="#4a90d9" stroke-width="1" fill="none"/>
+      <path d="M20 20 Q20 80 80 80 Q20 80 20 140" stroke="#4a90d9" stroke-width="1" fill="none"/>
+      <circle cx="80" cy="80" r="4" fill="#4a90d9" opacity="0.5"/>
+      <path d="M80 80 Q110 40 160 25" stroke="#4a90d9" stroke-width="0.8" fill="none"/>
+      <path d="M80 80 Q40 110 25 160" stroke="#4a90d9" stroke-width="0.8" fill="none"/>
+      <ellipse cx="158" cy="28" rx="10" ry="5" fill="#a8cdf5" opacity="0.6" transform="rotate(-35 158 28)"/>
+      <ellipse cx="140" cy="38" rx="9" ry="4" fill="#a8cdf5" opacity="0.5" transform="rotate(-55 140 38)"/>
+      <circle cx="163" cy="23" r="5" fill="#e8f4ff" stroke="#4a90d9" stroke-width="0.8" opacity="0.7"/>
+      <circle cx="163" cy="23" r="2" fill="#4a90d9" opacity="0.5"/>
+      <ellipse cx="28" cy="158" rx="5" ry="10" fill="#a8cdf5" opacity="0.6" transform="rotate(-35 28 158)"/>
+      <circle cx="26" cy="163" r="5" fill="#e8f4ff" stroke="#4a90d9" stroke-width="0.8" opacity="0.7"/>
+      <circle cx="26" cy="163" r="2" fill="#4a90d9" opacity="0.5"/>
+    </svg>
+    <svg class="hero-floral-bl" viewBox="0 0 220 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M20 20 Q80 20 80 80 Q80 20 140 20" stroke="#4a90d9" stroke-width="1" fill="none"/>
+      <path d="M20 20 Q20 80 80 80 Q20 80 20 140" stroke="#4a90d9" stroke-width="1" fill="none"/>
+      <circle cx="80" cy="80" r="4" fill="#4a90d9" opacity="0.5"/>
+      <path d="M80 80 Q110 40 160 25" stroke="#4a90d9" stroke-width="0.8" fill="none"/>
+      <path d="M80 80 Q40 110 25 160" stroke="#4a90d9" stroke-width="0.8" fill="none"/>
+      <ellipse cx="158" cy="28" rx="10" ry="5" fill="#a8cdf5" opacity="0.6" transform="rotate(-35 158 28)"/>
+      <ellipse cx="28" cy="158" rx="5" ry="10" fill="#a8cdf5" opacity="0.6" transform="rotate(-35 28 158)"/>
+      <circle cx="163" cy="23" r="5" fill="#e8f4ff" stroke="#4a90d9" stroke-width="0.8" opacity="0.7"/>
+      <circle cx="163" cy="23" r="2" fill="#4a90d9" opacity="0.5"/>
+      <circle cx="26" cy="163" r="5" fill="#e8f4ff" stroke="#4a90d9" stroke-width="0.8" opacity="0.7"/>
+      <circle cx="26" cy="163" r="2" fill="#4a90d9" opacity="0.5"/>
+    </svg>
+    <svg class="hero-floral-br" viewBox="0 0 220 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M20 20 Q80 20 80 80 Q80 20 140 20" stroke="#4a90d9" stroke-width="1" fill="none"/>
+      <path d="M20 20 Q20 80 80 80 Q20 80 20 140" stroke="#4a90d9" stroke-width="1" fill="none"/>
+      <circle cx="80" cy="80" r="4" fill="#4a90d9" opacity="0.5"/>
+      <path d="M80 80 Q110 40 160 25" stroke="#4a90d9" stroke-width="0.8" fill="none"/>
+      <path d="M80 80 Q40 110 25 160" stroke="#4a90d9" stroke-width="0.8" fill="none"/>
+      <ellipse cx="158" cy="28" rx="10" ry="5" fill="#a8cdf5" opacity="0.6" transform="rotate(-35 158 28)"/>
+      <ellipse cx="28" cy="158" rx="5" ry="10" fill="#a8cdf5" opacity="0.6" transform="rotate(-35 28 158)"/>
+      <circle cx="163" cy="23" r="5" fill="#e8f4ff" stroke="#4a90d9" stroke-width="0.8" opacity="0.7"/>
+      <circle cx="163" cy="23" r="2" fill="#4a90d9" opacity="0.5"/>
+      <circle cx="26" cy="163" r="5" fill="#e8f4ff" stroke="#4a90d9" stroke-width="0.8" opacity="0.7"/>
+      <circle cx="26" cy="163" r="2" fill="#4a90d9" opacity="0.5"/>
+    </svg>
+
+    <div class="hero-inner fade-in">
+      <div class="hero-border">
+        <p class="hero-label">The Wedding of</p>
+        <h1 class="hero-names">Aiden<span class="amp">&amp;</span>Sophia</h1>
+        <p class="hero-date">Saturday · June 14, 2026</p>
+      </div>
+    </div>
+
+    <!-- Inline floral divider below title -->
+    <div style="margin-top:36px;position:relative;z-index:2;" class="fade-in">
+      <svg width="320" height="40" viewBox="0 0 320 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <line x1="0" y1="20" x2="118" y2="20" stroke="#a8cdf5" stroke-width="0.8"/>
+        <!-- center flower -->
+        <circle cx="160" cy="20" r="8" fill="#e8f4ff" stroke="#4a90d9" stroke-width="0.8"/>
+        <circle cx="160" cy="20" r="3" fill="#4a90d9" opacity="0.6"/>
+        <!-- petals -->
+        <ellipse cx="160" cy="8"  rx="3" ry="5" fill="#a8cdf5" opacity="0.7"/>
+        <ellipse cx="160" cy="32" rx="3" ry="5" fill="#a8cdf5" opacity="0.7"/>
+        <ellipse cx="148" cy="20" rx="5" ry="3" fill="#a8cdf5" opacity="0.7"/>
+        <ellipse cx="172" cy="20" rx="5" ry="3" fill="#a8cdf5" opacity="0.7"/>
+        <!-- side leaves -->
+        <ellipse cx="135" cy="18" rx="7" ry="3" fill="#cce5ff" opacity="0.7" transform="rotate(-20 135 18)"/>
+        <ellipse cx="185" cy="22" rx="7" ry="3" fill="#cce5ff" opacity="0.7" transform="rotate(-20 185 22)"/>
+        <circle cx="126" cy="20" r="2.5" fill="#e8f4ff" stroke="#4a90d9" stroke-width="0.6"/>
+        <circle cx="194" cy="20" r="2.5" fill="#e8f4ff" stroke="#4a90d9" stroke-width="0.6"/>
+        <line x1="202" y1="20" x2="320" y2="20" stroke="#a8cdf5" stroke-width="0.8"/>
+      </svg>
     </div>
   </section>
 
-  <!-- Quote -->
+  <!-- QUOTE -->
   <section class="quote-section">
-    <p class="quote-text fade-in">
-      "And among His signs is that He created for you from yourselves mates that you may find tranquility in them; and He placed between you affection and mercy."
-    </p>
+    <p class="quote-text fade-in">"And among His signs is that He created for you from yourselves mates that you may find tranquility in them; and He placed between you affection and mercy."</p>
     <p class="quote-source fade-in">— Ar-Rum 21</p>
   </section>
 
-  <!-- Couple Info -->
+  <!-- COUPLE -->
   <section class="couple-section">
+    <!-- bg floral decorations -->
+    <svg class="couple-floral" style="top:-20px;left:-20px;width:200px;height:200px;" viewBox="0 0 200 200" fill="none">
+      <path d="M10 100 Q50 10 100 10 Q50 10 50 50 Q50 10 10 10" stroke="#4a90d9" stroke-width="0.7" fill="none"/>
+      <ellipse cx="98" cy="12" rx="8" ry="4" fill="#a8cdf5" opacity="0.5" transform="rotate(-10 98 12)"/>
+      <circle cx="100" cy="8" r="4" fill="#e8f4ff" stroke="#4a90d9" stroke-width="0.6"/>
+      <circle cx="100" cy="8" r="2" fill="#4a90d9" opacity="0.4"/>
+    </svg>
+    <svg class="couple-floral" style="bottom:-20px;right:-20px;width:200px;height:200px;transform:scale(-1,-1);" viewBox="0 0 200 200" fill="none">
+      <path d="M10 100 Q50 10 100 10 Q50 10 50 50 Q50 10 10 10" stroke="#4a90d9" stroke-width="0.7" fill="none"/>
+      <ellipse cx="98" cy="12" rx="8" ry="4" fill="#a8cdf5" opacity="0.5" transform="rotate(-10 98 12)"/>
+      <circle cx="100" cy="8" r="4" fill="#e8f4ff" stroke="#4a90d9" stroke-width="0.6"/>
+    </svg>
     <h3 class="section-title">The Couple</h3>
     <div class="couple-container">
       <div class="person fade-in">
-        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop" alt="Groom" class="person-photo">
+        <div class="person-avatar">A</div>
         <h3 class="person-name">Aiden Michael</h3>
         <p class="person-role">The Groom</p>
-        <p class="person-desc">Son of Mr. James Michael & Mrs. Sarah Michael</p>
+        <p class="person-desc">Son of Mr. James Michael &amp; Mrs. Sarah Michael</p>
       </div>
-      <div class="couple-divider">&</div>
+      <div class="couple-divider fade-in">&amp;</div>
       <div class="person fade-in">
-        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop" alt="Bride" class="person-photo">
+        <div class="person-avatar">S</div>
         <h3 class="person-name">Sophia Grace</h3>
         <p class="person-role">The Bride</p>
-        <p class="person-desc">Daughter of Mr. Robert Grace & Mrs. Emily Grace</p>
+        <p class="person-desc">Daughter of Mr. Robert Grace &amp; Mrs. Emily Grace</p>
       </div>
+    </div>
+    <!-- floral divider -->
+    <div style="margin-top:52px;text-align:center;" class="fade-in">
+      <svg width="260" height="32" viewBox="0 0 260 32" fill="none">
+        <line x1="0" y1="16" x2="96" y2="16" stroke="#a8cdf5" stroke-width="0.8"/>
+        <ellipse cx="108" cy="16" rx="8" ry="4" fill="#cce5ff" opacity="0.8" transform="rotate(-30 108 16)"/>
+        <circle cx="130" cy="16" r="7" fill="#e8f4ff" stroke="#4a90d9" stroke-width="0.8"/>
+        <circle cx="130" cy="16" r="3" fill="#4a90d9" opacity="0.5"/>
+        <ellipse cx="152" cy="16" rx="8" ry="4" fill="#cce5ff" opacity="0.8" transform="rotate(30 152 16)"/>
+        <line x1="164" y1="16" x2="260" y2="16" stroke="#a8cdf5" stroke-width="0.8"/>
+      </svg>
     </div>
   </section>
 
-  <!-- Event Details -->
+  <!-- EVENTS -->
   <section class="event-section">
+    <div class="event-section-bg"></div>
     <div class="event-container">
-      <h3 class="event-title">Wedding Events</h3>
+      <h3 class="section-title">Wedding Events</h3>
       <div class="event-grid">
         <div class="event-card fade-in">
           <span class="event-icon">💍</span>
           <h4 class="event-name">Akad Nikah</h4>
           <p class="event-date">Saturday, 14 June 2026</p>
-          <p class="event-time">09:00 - 11:00 WIB</p>
-          <p class="event-location">
-            <strong>St. Mary's Chapel</strong>
-            123 Rose Garden Lane<br>Singapore 238859
-          </p>
+          <p class="event-time">09:00 – 11:00 WIB</p>
+          <p class="event-location"><strong>St. Mary's Chapel</strong>123 Rose Garden Lane<br>Singapore 238859</p>
           <a href="https://maps.google.com" target="_blank" class="map-btn">View Map</a>
         </div>
         <div class="event-card fade-in">
           <span class="event-icon">🥂</span>
           <h4 class="event-name">Wedding Reception</h4>
           <p class="event-date">Saturday, 14 June 2026</p>
-          <p class="event-time">19:00 - 21:00 WIB</p>
-          <p class="event-location">
-            <strong>The Grand Ballroom</strong>
-            456 Orchard Boulevard<br>Singapore 238999
-          </p>
+          <p class="event-time">19:00 – 21:00 WIB</p>
+          <p class="event-location"><strong>The Grand Ballroom</strong>456 Orchard Boulevard<br>Singapore 238999</p>
           <a href="https://maps.google.com" target="_blank" class="map-btn">View Map</a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Gallery -->
-  <section class="gallery-section">
-    <h3 class="section-title">Our Moments</h3>
-    <div class="gallery-grid">
-      <div class="gallery-item fade-in" onclick="openLightbox(this)">
-        <img src="https://images.unsplash.com/photo-1519741497674-611481863552?w=600" alt="Wedding 1">
-      </div>
-      <div class="gallery-item fade-in" onclick="openLightbox(this)">
-        <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=600" alt="Wedding 2">
-      </div>
-      <div class="gallery-item fade-in" onclick="openLightbox(this)">
-        <img src="https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?w=600" alt="Wedding 3">
-      </div>
-      <div class="gallery-item fade-in" onclick="openLightbox(this)">
-        <img src="https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?w=600" alt="Wedding 4">
-      </div>
-      <div class="gallery-item fade-in" onclick="openLightbox(this)">
-        <img src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600" alt="Wedding 5">
-      </div>
-      <div class="gallery-item fade-in" onclick="openLightbox(this)">
-        <img src="https://images.unsplash.com/photo-1507504031981-723e9edd3e66?w=600" alt="Wedding 6">
-      </div>
-    </div>
-  </section>
-
-  <!-- Lightbox -->
-  <div class="lightbox" id="lightbox" onclick="closeLightbox()">
-    <button class="lightbox-close">&times;</button>
-    <img src="" alt="Gallery" id="lightbox-img">
-  </div>
-
-  <!-- RSVP -->
-  <section class="rsvp-section">
-    <div class="rsvp-container fade-in">
-      <h3 class="rsvp-title">RSVP</h3>
-      <p class="rsvp-subtitle">Please confirm your attendance by 1st June 2026</p>
-      <form id="rsvpForm" onsubmit="submitRSVP(event)">
-        <div class="form-group">
-          <label>Full Name</label>
-          <input type="text" id="rsvpName" required placeholder="Enter your full name">
-        </div>
-        <div class="form-group">
-          <label>Will you attend?</label>
-          <div class="radio-group">
-            <label class="radio-label">
-              <input type="radio" name="attendance" value="yes" checked> Yes, I'll be there
-            </label>
-            <label class="radio-label">
-              <input type="radio" name="attendance" value="no"> Sorry, can't make it
-            </label>
-          </div>
-        </div>
-        <div class="form-group">
-          <label>Number of Guests</label>
-          <select id="rsvpGuests">
-            <option value="1">1 Person</option>
-            <option value="2">2 Persons</option>
-            <option value="3">3 Persons</option>
-            <option value="4">4 Persons</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>Message for the Couple (Optional)</label>
-          <textarea id="rsvpMessage" placeholder="Write your wishes..."></textarea>
-        </div>
-        <button type="submit" class="submit-btn">Send RSVP</button>
-      </form>
-    </div>
-  </section>
-
-  <!-- Wishes -->
+  <!-- WISHES -->
   <section class="wishes-section">
-    <h3 class="section-title">Wishes & Prayers</h3>
+    <!-- floral top -->
+    <div style="text-align:center;margin-bottom:40px;" class="fade-in">
+      <svg width="300" height="36" viewBox="0 0 300 36" fill="none">
+        <line x1="0" y1="18" x2="108" y2="18" stroke="#a8cdf5" stroke-width="0.8"/>
+        <circle cx="118" cy="18" r="3" fill="#a8cdf5" opacity="0.6"/>
+        <ellipse cx="130" cy="10" rx="7" ry="4" fill="#cce5ff" opacity="0.7" transform="rotate(-20 130 10)"/>
+        <ellipse cx="130" cy="26" rx="7" ry="4" fill="#cce5ff" opacity="0.7" transform="rotate(20 130 26)"/>
+        <circle cx="150" cy="18" r="9" fill="#e8f4ff" stroke="#4a90d9" stroke-width="0.8"/>
+        <circle cx="150" cy="18" r="3.5" fill="#4a90d9" opacity="0.55"/>
+        <ellipse cx="150" cy="5"  rx="3.5" ry="6" fill="#a8cdf5" opacity="0.6"/>
+        <ellipse cx="150" cy="31" rx="3.5" ry="6" fill="#a8cdf5" opacity="0.6"/>
+        <ellipse cx="137" cy="18" rx="6" ry="3.5" fill="#a8cdf5" opacity="0.6"/>
+        <ellipse cx="163" cy="18" rx="6" ry="3.5" fill="#a8cdf5" opacity="0.6"/>
+        <ellipse cx="170" cy="10" rx="7" ry="4" fill="#cce5ff" opacity="0.7" transform="rotate(20 170 10)"/>
+        <ellipse cx="170" cy="26" rx="7" ry="4" fill="#cce5ff" opacity="0.7" transform="rotate(-20 170 26)"/>
+        <circle cx="182" cy="18" r="3" fill="#a8cdf5" opacity="0.6"/>
+        <line x1="192" y1="18" x2="300" y2="18" stroke="#a8cdf5" stroke-width="0.8"/>
+      </svg>
+    </div>
+    <h3 class="section-title" style="margin-bottom:32px;">Wishes &amp; Prayers</h3>
     <div class="wishes-container" id="wishesContainer">
       <div class="wish-card fade-in">
         <div class="wish-header">
-          <span class="wish-name">Jonathan & Family</span>
+          <span class="wish-name">Jonathan &amp; Family</span>
           <span class="wish-date">2 days ago</span>
         </div>
         <p class="wish-text">Congratulations on your wedding! Wishing you both a lifetime of love, laughter, and happiness together. May your journey be filled with beautiful moments!</p>
@@ -834,21 +548,40 @@
     </div>
   </section>
 
-  <!-- Gift -->
+  <!-- GIFT -->
   <section class="gift-section">
-    <h3 class="section-title" style="color: var(--gold-light); margin-bottom: 24px;">Wedding Gift</h3>
-    <p class="gift-text">
-      Your presence at our wedding is the greatest gift of all. However, if you wish to honor us with a gift, we would be grateful for a monetary contribution to help us start our new life together.
-    </p>
+    <!-- corner florals for gift section -->
+    <svg style="position:absolute;top:0;left:0;width:160px;height:160px;opacity:0.2;" viewBox="0 0 160 160" fill="none">
+      <path d="M10 10 Q60 10 60 60 Q60 10 110 10" stroke="#4a90d9" stroke-width="1" fill="none"/>
+      <path d="M10 10 Q10 60 60 60 Q10 60 10 110" stroke="#4a90d9" stroke-width="1" fill="none"/>
+      <circle cx="60" cy="60" r="3" fill="#4a90d9" opacity="0.6"/>
+      <ellipse cx="105" cy="14" rx="8" ry="4" fill="#a8cdf5" opacity="0.7" transform="rotate(-30 105 14)"/>
+      <circle cx="110" cy="10" r="5" fill="#e8f4ff" stroke="#4a90d9" stroke-width="0.7"/>
+      <circle cx="110" cy="10" r="2" fill="#4a90d9" opacity="0.5"/>
+      <ellipse cx="14" cy="105" rx="4" ry="8" fill="#a8cdf5" opacity="0.7" transform="rotate(-30 14 105)"/>
+      <circle cx="10" cy="110" r="5" fill="#e8f4ff" stroke="#4a90d9" stroke-width="0.7"/>
+      <circle cx="10" cy="110" r="2" fill="#4a90d9" opacity="0.5"/>
+    </svg>
+    <svg style="position:absolute;top:0;right:0;width:160px;height:160px;opacity:0.2;transform:scaleX(-1);" viewBox="0 0 160 160" fill="none">
+      <path d="M10 10 Q60 10 60 60 Q60 10 110 10" stroke="#4a90d9" stroke-width="1" fill="none"/>
+      <path d="M10 10 Q10 60 60 60 Q10 60 10 110" stroke="#4a90d9" stroke-width="1" fill="none"/>
+      <circle cx="60" cy="60" r="3" fill="#4a90d9" opacity="0.6"/>
+      <ellipse cx="105" cy="14" rx="8" ry="4" fill="#a8cdf5" opacity="0.7" transform="rotate(-30 105 14)"/>
+      <circle cx="110" cy="10" r="5" fill="#e8f4ff" stroke="#4a90d9" stroke-width="0.7"/>
+      <circle cx="110" cy="10" r="2" fill="#4a90d9" opacity="0.5"/>
+    </svg>
+
+    <h3 class="section-title">Wedding Gift</h3>
+    <p class="gift-text">Your presence at our wedding is the greatest gift of all. However, if you wish to honor us with a gift, we would be grateful for a monetary contribution to help us start our new life together.</p>
     <div class="bank-cards">
       <div class="bank-card fade-in">
-        <div class="bank-name">BANK CENTRAL ASIA</div>
+        <div class="bank-name">Bank Central Asia</div>
         <div class="bank-number" onclick="copyToClipboard('1234567890')">1234 5678 90</div>
         <div class="bank-holder">Aiden Michael</div>
         <button class="copy-btn" onclick="copyToClipboard('1234567890')">Copy Account</button>
       </div>
       <div class="bank-card fade-in">
-        <div class="bank-name">BANK MANDIRI</div>
+        <div class="bank-name">Bank Mandiri</div>
         <div class="bank-number" onclick="copyToClipboard('0987654321')">0987 6543 21</div>
         <div class="bank-holder">Sophia Grace</div>
         <button class="copy-btn" onclick="copyToClipboard('0987654321')">Copy Account</button>
@@ -856,16 +589,31 @@
     </div>
   </section>
 
-  <!-- Footer -->
+  <!-- FOOTER -->
   <footer class="footer">
-    <h2 class="footer-names">Aiden & Sophia</h2>
+    <!-- floral top border -->
+    <div style="text-align:center;margin-bottom:40px;">
+      <svg width="340" height="32" viewBox="0 0 340 32" fill="none">
+        <line x1="0" y1="16" x2="140" y2="16" stroke="#a8cdf5" stroke-width="0.8"/>
+        <circle cx="150" cy="16" r="3" fill="#a8cdf5" opacity="0.6"/>
+        <circle cx="170" cy="16" r="8" fill="#e8f4ff" stroke="#4a90d9" stroke-width="0.8"/>
+        <circle cx="170" cy="16" r="3" fill="#4a90d9" opacity="0.55"/>
+        <ellipse cx="170" cy="4"  rx="3" ry="5" fill="#a8cdf5" opacity="0.6"/>
+        <ellipse cx="170" cy="28" rx="3" ry="5" fill="#a8cdf5" opacity="0.6"/>
+        <ellipse cx="158" cy="16" rx="5" ry="3" fill="#a8cdf5" opacity="0.6"/>
+        <ellipse cx="182" cy="16" rx="5" ry="3" fill="#a8cdf5" opacity="0.6"/>
+        <circle cx="190" cy="16" r="3" fill="#a8cdf5" opacity="0.6"/>
+        <line x1="200" y1="16" x2="340" y2="16" stroke="#a8cdf5" stroke-width="0.8"/>
+      </svg>
+    </div>
+    <h2 class="footer-names">Aiden &amp; Sophia</h2>
     <p class="footer-text">Thank you for being part of our special day</p>
     <div class="social-links">
       <a href="#" class="social-link" title="Instagram">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
       </a>
     </div>
-    <p class="copyright">Made with love | 2026</p>
+    <p class="copyright">Made with love · 2026</p>
   </footer>
 
 </div><!-- /invitation -->
@@ -874,20 +622,19 @@
   // ══ GUEST NAME ══
   const params = new URLSearchParams(window.location.search);
   const rawName = params.get('name') || params.get('to') || '';
-  const guestName = rawName ? decodeURIComponent(rawName.replace(/\+/g, ' ')) : '';
-
+  const guestName = rawName ? decodeURIComponent(rawName.replace(/\+/g,' ')) : '';
   if (guestName) {
     document.getElementById('coverGuestName').textContent = guestName;
     document.title = 'Wedding Invitation for ' + guestName;
   }
 
-  // ══ OPEN INVITATION ══
+  // ══ OPEN ══
   function openInvitation() {
     document.getElementById('cover').classList.add('open');
     document.body.style.overflow = 'auto';
     setTimeout(() => {
       document.querySelectorAll('.fade-in').forEach((el, i) => {
-        setTimeout(() => el.classList.add('visible'), i * 150);
+        setTimeout(() => el.classList.add('visible'), i * 100);
       });
       startPetals();
     }, 500);
@@ -899,14 +646,11 @@
     const audio = document.getElementById('bgMusic');
     const toggle = document.getElementById('musicToggle');
     const icon = document.getElementById('musicIcon');
-
     if (isPlaying) {
-      audio.pause();
-      toggle.classList.remove('playing');
+      audio.pause(); toggle.classList.remove('playing');
       icon.innerHTML = '<path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>';
     } else {
-      audio.volume = 0.5;
-      audio.play().catch(e => console.log('Audio play failed:', e));
+      audio.volume = 0.5; audio.play().catch(()=>{});
       toggle.classList.add('playing');
       icon.innerHTML = '<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>';
     }
@@ -915,84 +659,24 @@
 
   // ══ COUNTDOWN ══
   (function() {
-    const WEDDING_DATE = new Date('2026-06-14T16:00:00');
-
-    function updateCountdown() {
-      const daysEl = document.getElementById('cover-cd-days');
-      const hoursEl = document.getElementById('cover-cd-hours');
-      const minsEl = document.getElementById('cover-cd-min');
-      const secsEl = document.getElementById('cover-cd-sec');
-
-      if (!daysEl || !hoursEl || !minsEl || !secsEl) return;
-
-      const diff = WEDDING_DATE - new Date();
-
-      if (diff <= 0) {
-        daysEl.textContent = '00';
-        hoursEl.textContent = '00';
-        minsEl.textContent = '00';
-        secsEl.textContent = '00';
-        return;
-      }
-
-      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-
-      daysEl.textContent = String(days).padStart(2, '0');
-      hoursEl.textContent = String(hours).padStart(2, '0');
-      minsEl.textContent = String(minutes).padStart(2, '0');
-      secsEl.textContent = String(seconds).padStart(2, '0');
+    const D = new Date('2026-06-14T16:00:00');
+    function upd() {
+      const d=document.getElementById('cover-cd-days'),h=document.getElementById('cover-cd-hours'),
+            m=document.getElementById('cover-cd-min'),s=document.getElementById('cover-cd-sec');
+      if(!d) return;
+      const diff = D - new Date();
+      if(diff<=0){[d,h,m,s].forEach(e=>e.textContent='00');return;}
+      d.textContent=String(Math.floor(diff/86400000)).padStart(2,'0');
+      h.textContent=String(Math.floor((diff%86400000)/3600000)).padStart(2,'0');
+      m.textContent=String(Math.floor((diff%3600000)/60000)).padStart(2,'0');
+      s.textContent=String(Math.floor((diff%60000)/1000)).padStart(2,'0');
     }
-
-    updateCountdown();
-    setInterval(updateCountdown, 1000);
+    upd(); setInterval(upd,1000);
   })();
 
-  // ══ LIGHTBOX ══
-  function openLightbox(el) {
-    const img = el.querySelector('img').src;
-    document.getElementById('lightbox-img').src = img;
-    document.getElementById('lightbox').classList.add('active');
-    document.body.style.overflow = 'hidden';
-  }
-  function closeLightbox() {
-    document.getElementById('lightbox').classList.remove('active');
-    document.body.style.overflow = 'auto';
-  }
-
-  // ══ COPY TO CLIPBOARD ══
+  // ══ COPY ══
   function copyToClipboard(text) {
-    navigator.clipboard.writeText(text).then(() => {
-      alert('Account number copied: ' + text);
-    });
-  }
-
-  // ══ RSVP SUBMIT ══
-  function submitRSVP(e) {
-    e.preventDefault();
-    const name = document.getElementById('rsvpName').value;
-    const attending = document.querySelector('input[name="attendance"]:checked').value;
-    const guests = document.getElementById('rsvpGuests').value;
-    const message = document.getElementById('rsvpMessage').value;
-
-    if (message) {
-      const container = document.getElementById('wishesContainer');
-      const card = document.createElement('div');
-      card.className = 'wish-card';
-      card.innerHTML = `
-        <div class="wish-header">
-          <span class="wish-name">${name}</span>
-          <span class="wish-date">Just now</span>
-        </div>
-        <p class="wish-text">${message} ${attending === 'yes' ? '✨' : ''}</p>
-      `;
-      container.insertBefore(card, container.firstChild);
-    }
-
-    alert(`Thank you ${name}! Your RSVP has been recorded.`);
-    document.getElementById('rsvpForm').reset();
+    navigator.clipboard.writeText(text).then(() => alert('Account number copied: ' + text));
   }
 
   // ══ PETALS ══
@@ -1003,17 +687,11 @@
       p.style.animationDuration = (10+Math.random()*10)+'s';
       p.style.animationDelay = (Math.random()*5)+'s';
       document.body.appendChild(p);
-      setTimeout(() => p.remove(), 25000);
+      setTimeout(()=>p.remove(), 25000);
     }
-    for(let i=0;i<12;i++) setTimeout(spawn, i*500);
-    setInterval(spawn, 4000);
+    for(let i=0;i<12;i++) setTimeout(spawn,i*500);
+    setInterval(spawn,4000);
   }
-
-  // Close lightbox with Escape key
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') closeLightbox();
-  });
 </script>
-
 </body>
 </html>
