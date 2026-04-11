@@ -1,13 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Cache Control - Force Fresh Load -->
-  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-  <meta http-equiv="Pragma" content="no-cache">
-  <meta http-equiv="Expires" content="0">
-
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
+  <meta http-equiv="Pragma" content="no-cache"/>
+  <meta http-equiv="Expires" content="0"/>
   <title>Wedding Invitation — Aiden & Sophia</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&family=EB+Garamond:ital@0;1&display=swap" rel="stylesheet">
@@ -87,7 +85,7 @@
       letter-spacing: 0.3em; text-transform: uppercase;
       cursor: pointer; position: relative; overflow: hidden;
       transition: color 0.4s;
-      opacity: 0; animation: coverUp 1s 1.4s ease both;
+      opacity: 0; animation: coverUp 1s 1.3s ease both;
     }
     .open-btn::before {
       content: ''; position: absolute; inset: 0;
@@ -103,360 +101,139 @@
       to   { opacity: 1; transform: translateY(0); }
     }
 
-    /* ══ MUSIC PLAYER ══ */
-    .music-toggle {
-      position: fixed; bottom: 30px; right: 30px;
-      width: 50px; height: 50px;
-      background: var(--dark); border: 1px solid var(--gold);
-      border-radius: 50%; cursor: pointer; z-index: 999;
-      display: flex; align-items: center; justify-content: center;
-      transition: transform 0.3s, box-shadow 0.3s;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    /* ══ COVER COUNTDOWN ══ */
+    .cover-countdown {
+      margin-top: 40px;
+      opacity: 0;
+      animation: coverUp 0.9s 1.5s ease both;
     }
-    .music-toggle:hover { transform: scale(1.1); box-shadow: 0 0 20px rgba(184,150,90,0.4); }
-    .music-toggle.playing { animation: pulse 2s infinite; }
-    @keyframes pulse {
-      0%, 100% { box-shadow: 0 0 0 0 rgba(184,150,90,0.4); }
-      50% { box-shadow: 0 0 0 10px rgba(184,150,90,0); }
+    .cover-countdown-text {
+      font-family: 'Cinzel', serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
     }
-    .music-toggle svg { width: 20px; height: 20px; fill: var(--gold); }
+    .cover-countdown-timer {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+    }
+    .cover-cd-unit {
+      text-align: center;
+      min-width: 60px;
+    }
+    .cover-cd-number {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      font-weight: 300;
+      color: var(--gold-light);
+      display: block;
+      line-height: 1;
+    }
+    .cover-cd-label {
+      font-family: 'Cinzel', serif;
+      font-size: 0.5rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(184,150,90,0.7);
+      margin-top: 4px;
+      display: block;
+    }
 
-    /* ══ HERO PHOTO ══ */
-    .hero-photo {
-      position: relative; height: 100vh; min-height: 600px;
-      background: linear-gradient(to bottom, rgba(42,31,20,0.3), rgba(42,31,20,0.5)), 
-                  url('https://images.unsplash.com/photo-1519741497674-611481863552?w=1920&q=80') center/cover;
-      display: flex; align-items: center; justify-content: center;
-      text-align: center; color: white;
+    /* ══ MAIN CONTENT ══ */
+    #invitation { 
+      min-height: 100vh; 
+      padding-top: 0; 
     }
-    .hero-content {
-      position: relative; z-index: 2;
-      padding: 40px;
-      border: 1px solid rgba(255,255,255,0.2);
-      background: rgba(0,0,0,0.2);
-      backdrop-filter: blur(4px);
+    .page {
+      max-width: 900px; 
+      margin: 0 auto;
+      padding: 60px 28px 80px;
     }
-    .hero-content::before, .hero-content::after {
-      content: ''; position: absolute;
-      width: 40px; height: 40px;
-      border: 1px solid var(--gold);
+    .fade-in {
+      opacity: 0; 
+      transform: translateY(30px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
     }
-    .hero-content::before { top: 10px; left: 10px; border-right: none; border-bottom: none; }
-    .hero-content::after { bottom: 10px; right: 10px; border-left: none; border-top: none; }
+    .fade-in.visible {
+      opacity: 1; 
+      transform: translateY(0);
+    }
 
+    /* Hero */
+    .hero {
+      text-align: center; 
+      padding: 80px 32px;
+      border: 1px solid rgba(184,150,90,0.3);
+      background: rgba(253,248,240,0.9);
+      margin-bottom: 40px;
+    }
     .hero-names {
       font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(3rem, 10vw, 6rem);
-      font-weight: 300; font-style: italic;
-      line-height: 1; margin-bottom: 20px;
+      font-size: clamp(3rem, 9vw, 5rem);
+      font-weight: 300; 
+      font-style: italic;
+      color: var(--dark); 
+      line-height: 1;
+      margin-bottom: 16px;
     }
     .hero-date {
       font-family: 'Cinzel', serif;
-      font-size: 1rem; letter-spacing: 0.4em;
-      color: var(--gold-light);
-    }
-    .scroll-indicator {
-      position: absolute; bottom: 40px; left: 50%;
-      transform: translateX(-50%);
-      animation: bounce 2s infinite;
-    }
-    @keyframes bounce {
-      0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
-      40% { transform: translateX(-50%) translateY(-10px); }
-      60% { transform: translateX(-50%) translateY(-5px); }
+      font-size: 1rem; 
+      letter-spacing: 0.4em;
+      color: var(--gold);
     }
 
-    /* ══ QUOTE SECTION ══ */
-    .quote-section {
-      padding: 100px 28px; text-align: center;
-      background: linear-gradient(to bottom, var(--cream), #f5ede0);
-      position: relative;
-    }
-    .quote-section::before {
-      content: '"'; font-family: 'Cormorant Garamond', serif;
-      font-size: 8rem; color: var(--gold); opacity: 0.15;
-      position: absolute; top: 40px; left: 50%;
-      transform: translateX(-50%);
-    }
-    .quote-text {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(1.3rem, 3vw, 1.8rem);
-      font-style: italic; color: var(--text);
-      max-width: 600px; margin: 0 auto 20px;
-      line-height: 1.8;
-    }
-    .quote-source {
-      font-family: 'Cinzel', serif;
-      font-size: 0.8rem; color: var(--gold);
-      letter-spacing: 0.2em;
-    }
-
-    /* ══ COUPLE INFO ══ */
-    .couple-section {
-      padding: 80px 28px; background: white;
-    }
-    .section-title {
-      font-family: 'Cinzel', serif;
-      font-size: 0.75rem; letter-spacing: 0.4em;
-      color: var(--gold); text-transform: uppercase;
-      text-align: center; margin-bottom: 60px;
-    }
-    .couple-container {
-      max-width: 900px; margin: 0 auto;
-      display: grid; grid-template-columns: 1fr auto 1fr;
-      gap: 40px; align-items: center;
-    }
-    @media(max-width:768px) {
-      .couple-container { grid-template-columns: 1fr; gap: 40px; }
-      .couple-divider { transform: rotate(90deg); margin: 20px 0; }
-    }
-    .person {
-      text-align: center;
-    }
-    .person-photo {
-      width: 200px; height: 200px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 3px solid var(--gold);
-      margin: 0 auto 24px;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.1);
-    }
-    .person-name {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 2rem; font-weight: 300;
-      color: var(--dark); margin-bottom: 8px;
-    }
-    .person-role {
-      font-family: 'Cinzel', serif;
-      font-size: 0.7rem; color: var(--gold);
-      letter-spacing: 0.2em; margin-bottom: 16px;
-    }
-    .person-desc {
-      font-size: 0.95rem; color: #666;
-      max-width: 280px; margin: 0 auto;
-    }
-    .couple-divider {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 3rem; color: var(--gold);
-      font-style: italic;
-    }
-
-    /* ══ EVENT DETAILS ══ */
-    .event-section {
-      padding: 100px 28px;
-      background: linear-gradient(135deg, #2a1f14 0%, #1a1410 100%);
-      color: white; position: relative;
-      overflow: hidden;
-    }
-    .event-section::before {
-      content: ''; position: absolute;
-      inset: 0;
-      background: url('https://www.transparenttextures.com/patterns/cubes.png');
-      opacity: 0.03;
-    }
-    .event-container {
-      max-width: 1000px; margin: 0 auto;
-      position: relative; z-index: 1;
-    }
-    .event-title {
-      font-family: 'Cinzel', serif;
-      text-align: center; font-size: 0.8rem;
-      letter-spacing: 0.4em; color: var(--gold);
-      margin-bottom: 60px;
-    }
+    /* Event Cards */
     .event-grid {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 30px;
+      display: grid; 
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      margin: 40px 0;
     }
     .event-card {
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(184,150,90,0.2);
-      padding: 40px 30px; text-align: center;
-      transition: transform 0.3s, box-shadow 0.3s;
+      background: white;
+      border: 1px solid rgba(184,150,90,0.25);
+      padding: 36px 28px; 
+      text-align: center;
     }
-    .event-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-      border-color: rgba(184,150,90,0.4);
-    }
-    .event-icon {
-      font-size: 2.5rem; margin-bottom: 20px;
-      display: block;
-    }
+    .event-icon { font-size: 2rem; margin-bottom: 16px; display: block; }
     .event-name {
-      font-family: 'Cinzel', serif;
-      font-size: 1.2rem; color: var(--gold-light);
-      letter-spacing: 0.1em; margin-bottom: 16px;
+      font-family: 'Cinzel', serif; 
+      font-size: 0.75rem;
+      letter-spacing: 0.2em; 
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 12px;
     }
-    .event-date {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.5rem; font-style: italic;
-      color: white; margin-bottom: 8px;
-    }
-    .event-time {
-      font-size: 1rem; color: rgba(255,255,255,0.7);
-      margin-bottom: 20px;
-    }
-    .event-location {
-      font-size: 0.95rem; color: rgba(255,255,255,0.8);
+    .event-detail {
+      font-size: 1.1rem; 
+      color: var(--dark);
       line-height: 1.6;
     }
-    .event-location strong {
-      color: var(--gold-light); display: block;
-      margin-bottom: 4px; font-weight: 600;
-    }
-    .map-btn {
-      display: inline-block; margin-top: 16px;
-      padding: 10px 24px;
-      border: 1px solid var(--gold);
-      color: var(--gold-light); text-decoration: none;
-      font-family: 'Cinzel', serif; font-size: 0.7rem;
-      letter-spacing: 0.15em; transition: all 0.3s;
-    }
-    .map-btn:hover {
-      background: var(--gold); color: var(--dark);
-    }
 
-    /* ══ COUNTDOWN ══ */
-    .countdown-section {
-    padding: 80px 28px;
-    background: linear-gradient(135deg, #2a1f14 0%, #1a1410 100%);
-    color: white;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-  }
-  .::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(ellipse 60% 40% at 50% 0%, rgba(184,150,90,0.15) 0%, transparent 70%);
-    pointer-events: none;
-  }
-  .countdown-title {
-    font-family: 'Cinzel', serif;
-    font-size: 0.75rem;
-    letter-spacing: 0.4em;
-    color: var(--gold);
-    text-transform: uppercase;
-    margin-bottom: 40px;
-    position: relative;
-    z-index: 1;
-  }
-  .countdown-container {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    flex-wrap: wrap;
-    max-width: 600px;
-    margin: 0 auto;
-    position: relative;
-    z-index: 1;
-  }
-  .countdown-box {
-    flex: 1;
-    min-width: 100px;
-    max-width: 130px;
-    padding: 28px 16px;
-    background: rgba(255,255,255,0.03);
-    border: 1px solid rgba(184,150,90,0.25);
-    transition: transform 0.3s, border-color 0.3s;
-  }
-  .countdown-box:hover {
-    transform: translateY(-5px);
-    border-color: rgba(184,150,90,0.5);
-  }
-  .countdown-number {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 3.5rem;
-    font-weight: 300;
-    color: var(--gold-light);
-    display: block;
-    line-height: 1;
-    margin-bottom: 8px;
-  }
-  .countdown-label {
-    font-family: 'Cinzel', serif;
-    font-size: 0.6rem;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    color: var(--gold);
-  }
-  .countdown-message {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.8rem;
-    font-style: italic;
-    color: var(--gold-light);
-    margin-top: 40px;
-    position: relative;
-    z-index: 1;
-  }
-  @media(max-width: 480px) {
-    .countdown-box { min-width: 70px; padding: 20px 10px; }
-    .countdown-number { font-size: 2.5rem; }
-    .countdown-label { font-size: 0.5rem; }
-  }
-
-  /* ══ COVER COUNTDOWN ══ */
-  .cover-countdown {
-    margin-top: 40px;
-    opacity: 0;
-    animation: coverUp 0.9s 1.4s ease both;
-  }
-  .cover-countdown-text {
-    font-family: 'Cinzel', serif;
-    font-size: 0.6rem;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 16px;
-  }
-  .cover-countdown-timer {
-    display: flex;
-    justify-content: center;
-    gap: 16px;
-  }
-  .cover-cd-unit {
-    text-align: center;
-    min-width: 60px;
-  }
-  .cover-cd-number {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 2rem;
-    font-weight: 300;
-    color: var(--gold-light);
-    display: block;
-    line-height: 1;
-  }
-  .cover-cd-label {
-    font-family: 'Cinzel', serif;
-    font-size: 0.5rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: rgba(184,150,90,0.7);
-    margin-top: 4px;
-    display: block;
-  }
-  @media(max-width: 480px) {
-    .cover-cd-unit { min-width: 50px; }
-    .cover-cd-number { font-size: 1.6rem; }
-  }
-
-</style>
+    /* Footer */
+    .footer { 
+      text-align: center; 
+      margin-top: 60px;
+      padding-top: 40px;
+      border-top: 1px solid rgba(184,150,90,0.2);
+    }
+    .footer-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.8rem; 
+      font-style: italic;
+      color: var(--dark);
+    }
+  </style>
 </head>
 <body>
 
-<!-- ══ MUSIC ══ -->
-<audio id="bgMusic" loop>
-  <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
-</audio>
-<button class="music-toggle" id="musicToggle" onclick="toggleMusic()">
-  <svg viewBox="0 0 24 24" id="musicIcon"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
-</button>
-
-<!-- ══ COVER ══ -->
+<!-- ══ COVER SCREEN ══ -->
 <div id="cover">
-  <p class="cover-eyebrow">The Wedding of</p>
+  <p class="cover-eyebrow">You are cordially invited to</p>
   <div class="cover-couple">Aiden<span class="cover-amp">&</span>Sophia</div>
   <div class="cover-divider">
     <span></span>
@@ -467,397 +244,112 @@
   </div>
   <p class="cover-guest-label">Dear</p>
   <p class="cover-guest-name" id="coverGuestName">Valued Guest</p>
+
   <button class="open-btn" onclick="openInvitation()">
     <span>Open Invitation</span>
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
       <path d="M12 5v14M5 12l7 7 7-7"/>
     </svg>
   </button>
+
+  <!-- Countdown below button -->
+  <div class="cover-countdown">
+    <p class="cover-countdown-text">Counting down to June 14, 2026</p>
+    <div class="cover-countdown-timer">
+      <div class="cover-cd-unit">
+        <span class="cover-cd-number" id="cover-cd-days">00</span>
+        <span class="cover-cd-label">Days</span>
+      </div>
+      <div class="cover-cd-unit">
+        <span class="cover-cd-number" id="cover-cd-hours">00</span>
+        <span class="cover-cd-label">Hours</span>
+      </div>
+      <div class="cover-cd-unit">
+        <span class="cover-cd-number" id="cover-cd-min">00</span>
+        <span class="cover-cd-label">Mins</span>
+      </div>
+      <div class="cover-cd-unit">
+        <span class="cover-cd-number" id="cover-cd-sec">00</span>
+        <span class="cover-cd-label">Secs</span>
+      </div>
+    </div>
+  </div>
 </div>
 
-<!-- ══ HERO PHOTO ══ -->
-<section class=" inv-animate" style="margin-top:0; border-bottom: 1px solid rgba(184,150,90,0.2);">
-  <h3 class="countdown-title">Counting Down to Our Big Day</h3>
-  <div class="countdown-container">
-    <div class="countdown-box">
-      <span class="countdown-number" id="cd-days">--</span>
-      <span class="countdown-label">Days</span>
-    </div>
-    <div class="countdown-box">
-      <span class="countdown-number" id="cd-hours">--</span>
-      <span class="countdown-label">Hours</span>
-    </div>
-    <div class="countdown-box">
-      <span class="countdown-number" id="cd-min">--</span>
-      <span class="countdown-label">Minutes</span>
-    </div>
-    <div class="countdown-box">
-      <span class="countdown-number" id="cd-sec">--</span>
-      <span class="countdown-label">Seconds</span>
-    </div>
-  </div>
-  <p class="countdown-message" id="countdown-msg">Until we say "I do"</p>
-</section>
+<!-- ══ MAIN INVITATION ══ -->
+<div id="invitation">
+  <div class="page">
 
-<section class="hero-photo">
-  <div class="hero-content">
-    <h1 class="hero-names">Aiden & Sophia</h1>
-    <p class="hero-date">14 . 06 . 2025</p>
-  </div>
-  <div class="scroll-indicator">
-    <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1">
-      <path d="M7 13l5 5 5-5M7 6l5 5 5-5"/>
-    </svg>
-  </div>
-</section>
+    <section class="hero fade-in">
+      <h1 class="hero-names">Aiden & Sophia</h1>
+      <p class="hero-date">June 14, 2026</p>
+    </section>
 
-<!-- ══ QUOTE ══ -->
-<section class="quote-section">
-  <p class="quote-text fade-in">
-    "And among His signs is that He created for you from yourselves mates that you may find tranquility in them; and He placed between you affection and mercy."
-  </p>
-  <p class="quote-source fade-in">— Ar-Rum 21</p>
-</section>
-
-<!-- ══ COUPLE ══ -->
-<section class="couple-section">
-  <h3 class="section-title">The Couple</h3>
-  <div class="couple-container">
-    <div class="person fade-in">
-      <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop" alt="Groom" class="person-photo">
-      <h3 class="person-name">Aiden Michael</h3>
-      <p class="person-role">The Groom</p>
-      <p class="person-desc">Son of Mr. James Michael & Mrs. Sarah Michael</p>
-    </div>
-    <div class="couple-divider">&</div>
-    <div class="person fade-in">
-      <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop" alt="Bride" class="person-photo">
-      <h3 class="person-name">Sophia Grace</h3>
-      <p class="person-role">The Bride</p>
-      <p class="person-desc">Daughter of Mr. Robert Grace & Mrs. Emily Grace</p>
-    </div>
-  </div>
-</section>
-
-<!-- ══ EVENT ══ -->
-<section class="event-section">
-  <div class="event-container">
-    <h3 class="event-title">Wedding Events</h3>
-    <div class="event-grid">
+    <section class="event-grid">
       <div class="event-card fade-in">
         <span class="event-icon">💍</span>
-        <h4 class="event-name">Akad Nikah</h4>
-        <p class="event-date">Saturday, 14 June 2025</p>
-        <p class="event-time">09:00 - 11:00 WIB</p>
-        <p class="event-location">
-          <strong>St. Mary's Chapel</strong>
-          123 Rose Garden Lane<br>Singapore 238859
+        <h3 class="event-name">Ceremony</h3>
+        <p class="event-detail">
+          <strong>St. Mary's Chapel</strong><br>
+          123 Rose Garden Lane<br>
+          Singapore 238859<br>
+          4:00 PM
         </p>
-        <a href="https://maps.google.com" target="_blank" class="map-btn">View Map</a>
       </div>
       <div class="event-card fade-in">
         <span class="event-icon">🥂</span>
-        <h4 class="event-name">Wedding Reception</h4>
-        <p class="event-date">Saturday, 14 June 2025</p>
-        <p class="event-time">19:00 - 21:00 WIB</p>
-        <p class="event-location">
-          <strong>The Grand Ballroom</strong>
-          456 Orchard Boulevard<br>Singapore 238999
+        <h3 class="event-name">Reception</h3>
+        <p class="event-detail">
+          <strong>The Grand Ballroom</strong><br>
+          456 Orchard Boulevard<br>
+          Singapore 238999<br>
+          7:00 PM
         </p>
-        <a href="https://maps.google.com" target="_blank" class="map-btn">View Map</a>
       </div>
-    </div>
-  </div>
-</section>
+    </section>
 
-<!-- ══ GALLERY ══ -->
-<section class="gallery-section">
-  <h3 class="section-title">Our Moments</h3>
-  <div class="gallery-grid">
-    <div class="gallery-item fade-in" onclick="openLightbox(this)">
-      <img src="https://images.unsplash.com/photo-1519741497674-611481863552?w=600" alt="Wedding 1">
-    </div>
-    <div class="gallery-item fade-in" onclick="openLightbox(this)">
-      <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=600" alt="Wedding 2">
-    </div>
-    <div class="gallery-item fade-in" onclick="openLightbox(this)">
-      <img src="https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?w=600" alt="Wedding 3">
-    </div>
-    <div class="gallery-item fade-in" onclick="openLightbox(this)">
-      <img src="https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?w=600" alt="Wedding 4">
-    </div>
-    <div class="gallery-item fade-in" onclick="openLightbox(this)">
-      <img src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600" alt="Wedding 5">
-    </div>
-    <div class="gallery-item fade-in" onclick="openLightbox(this)">
-      <img src="https://images.unsplash.com/photo-1507504031981-723e9edd3e66?w=600" alt="Wedding 6">
-    </div>
-  </div>
-</section>
+    <footer class="footer fade-in">
+      <p class="footer-text">Aiden & Sophia · 2026</p>
+    </footer>
 
-<!-- ══ LIGHTBOX ══ -->
-<div class="lightbox" id="lightbox" onclick="closeLightbox()">
-  <button class="lightbox-close">&times;</button>
-  <img src="" alt="Gallery" id="lightbox-img">
+  </div>
 </div>
 
-<!-- ══ RSVP ══ -->
-<section class="rsvp-section">
-  <div class="rsvp-container fade-in">
-    <h3 class="rsvp-title">RSVP</h3>
-    <p class="rsvp-subtitle">Please confirm your attendance by 1st June 2025</p>
-    <form id="rsvpForm" onsubmit="submitRSVP(event)">
-      <div class="form-group">
-        <label>Full Name</label>
-        <input type="text" id="rsvpName" required placeholder="Enter your full name">
-      </div>
-      <div class="form-group">
-        <label>Will you attend?</label>
-        <div class="radio-group">
-          <label class="radio-label">
-            <input type="radio" name="attendance" value="yes" checked> Yes, I'll be there
-          </label>
-          <label class="radio-label">
-            <input type="radio" name="attendance" value="no"> Sorry, can't make it
-          </label>
-        </div>
-      </div>
-      <div class="form-group">
-        <label>Number of Guests</label>
-        <select id="rsvpGuests">
-          <option value="1">1 Person</option>
-          <option value="2">2 Persons</option>
-          <option value="3">3 Persons</option>
-          <option value="4">4 Persons</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label>Message for the Couple (Optional)</label>
-        <textarea id="rsvpMessage" placeholder="Write your wishes..."></textarea>
-      </div>
-      <button type="submit" class="submit-btn">Send RSVP</button>
-    </form>
-  </div>
-</section>
-
-<!-- ══ WISHES ══ -->
-<section class="wishes-section">
-  <h3 class="section-title">Wishes & Prayers</h3>
-  <div class="wishes-container" id="wishesContainer">
-    <div class="wish-card fade-in">
-      <div class="wish-header">
-        <span class="wish-name">Jonathan & Family</span>
-        <span class="wish-date">2 days ago</span>
-      </div>
-      <p class="wish-text">Congratulations on your wedding! Wishing you both a lifetime of love, laughter, and happiness together. May your journey be filled with beautiful moments!</p>
-    </div>
-    <div class="wish-card fade-in">
-      <div class="wish-header">
-        <span class="wish-name">Sarah Mitchell</span>
-        <span class="wish-date">5 days ago</span>
-      </div>
-      <p class="wish-text">So happy for you both! May your love grow stronger with each passing day. Can't wait to celebrate with you! 🎉</p>
-    </div>
-  </div>
-</section>
-
-<!-- ══ GIFT ══ -->
-<section class="gift-section">
-  <h3 class="section-title" style="color: var(--gold-light); margin-bottom: 24px;">Wedding Gift</h3>
-  <p class="gift-text">
-    Your presence at our wedding is the greatest gift of all. However, if you wish to honor us with a gift, we would be grateful for a monetary contribution to help us start our new life together.
-  </p>
-  <div class="bank-cards">
-    <div class="bank-card fade-in">
-      <div class="bank-name">BANK CENTRAL ASIA</div>
-      <div class="bank-number" onclick="copyToClipboard('1234567890')">1234 5678 90</div>
-      <div class="bank-holder">Aiden Michael</div>
-      <button class="copy-btn" onclick="copyToClipboard('1234567890')">Copy Account</button>
-    </div>
-    <div class="bank-card fade-in">
-      <div class="bank-name">BANK MANDIRI</div>
-      <div class="bank-number" onclick="copyToClipboard('0987654321')">0987 6543 21</div>
-      <div class="bank-holder">Sophia Grace</div>
-      <button class="copy-btn" onclick="copyToClipboard('0987654321')">Copy Account</button>
-    </div>
-  </div>
-</section>
-
-<!-- ══ FOOTER ══ -->
-
-<footer class="footer">
-  <h2 class="footer-names">Aiden & Sophia</h2>
-  <p class="footer-text">Thank you for being part of our special day</p>
-  <div class="social-links">
-    <a href="#" class="social-link" title="Instagram">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-    </a>
-  </div>
-  <p class="copyright">Made with love | 2025</p>
-</footer>
-
 <script>
-  // ══ Guest Name from URL ══
+  // ══ GUEST NAME ══
   const params = new URLSearchParams(window.location.search);
-  const raw = params.get('name') || params.get('to') || '';
-  const guestName = raw ? decodeURIComponent(raw.replace(/\+/g, ' ')) : '';
+  const rawName = params.get('name') || params.get('to') || '';
+  const guestName = rawName ? decodeURIComponent(rawName.replace(/\+/g, ' ')) : '';
 
   if (guestName) {
     document.getElementById('coverGuestName').textContent = guestName;
     document.title = 'Wedding Invitation for ' + guestName;
   }
 
-  // ══ Open Invitation ══
+  // ══ OPEN INVITATION ══
   function openInvitation() {
     document.getElementById('cover').classList.add('open');
     document.body.style.overflow = 'auto';
-    startPetals();
-    initObserver();
-    // Auto-play music
-    toggleMusic();
-  }
-
-  // ══ Music Toggle ══
-  let isPlaying = false;
-  function toggleMusic() {
-    const audio = document.getElementById('bgMusic');
-    const toggle = document.getElementById('musicToggle');
-    const icon = document.getElementById('musicIcon');
-
-    if (isPlaying) {
-      audio.pause();
-      toggle.classList.remove('playing');
-      icon.innerHTML = '<path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>';
-    } else {
-      audio.volume = 0.5;
-      audio.play().catch(e => console.log('Audio play failed:', e));
-      toggle.classList.add('playing');
-      icon.innerHTML = '<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>';
-    }
-    isPlaying = !isPlaying;
-  }
-
-  // ══ Countdown ══
-  const weddingDate = new Date('2026-06-14T16:00:00');
-  function updateCountdown() {
-    const diff = weddingDate - new Date();
-    if (diff <= 0) {
-      document.querySelector('.countdown-container').innerHTML = 
-        '<div style="text-align:center;font-style:italic;color:var(--gold);font-size:1.5rem;padding:20px;">Today is the big day! 🎉</div>';
-      return;
-    }
-    document.getElementById('cd-days').textContent = String(Math.floor(diff/86400000)).padStart(2,'0');
-    document.getElementById('cd-hours').textContent = String(Math.floor((diff%86400000)/3600000)).padStart(2,'0');
-    document.getElementById('cd-min').textContent = String(Math.floor((diff%3600000)/60000)).padStart(2,'0');
-    document.getElementById('cd-sec').textContent = String(Math.floor((diff%60000)/1000)).padStart(2,'0');
-  }
-  updateCountdown(); setInterval(updateCountdown, 1000);
-
-  // ══ Lightbox ══
-  function openLightbox(el) {
-    const img = el.querySelector('img').src;
-    document.getElementById('lightbox-img').src = img;
-    document.getElementById('lightbox').classList.add('active');
-    document.body.style.overflow = 'hidden';
-  }
-  function closeLightbox() {
-    document.getElementById('lightbox').classList.remove('active');
-    document.body.style.overflow = 'auto';
-  }
-
-  // ══ Copy to Clipboard ══
-  function copyToClipboard(text) {
-    navigator.clipboard.writeText(text).then(() => {
-      alert('Account number copied: ' + text);
-    });
-  }
-
-  // ══ RSVP Submit ══
-  function submitRSVP(e) {
-    e.preventDefault();
-    const name = document.getElementById('rsvpName').value;
-    const attending = document.querySelector('input[name="attendance"]:checked').value;
-    const guests = document.getElementById('rsvpGuests').value;
-    const message = document.getElementById('rsvpMessage').value;
-
-    // Add to wishes (simulation)
-    if (message) {
-      const container = document.getElementById('wishesContainer');
-      const card = document.createElement('div');
-      card.className = 'wish-card';
-      card.innerHTML = `
-        <div class="wish-header">
-          <span class="wish-name">${name}</span>
-          <span class="wish-date">Just now</span>
-        </div>
-        <p class="wish-text">${message} ${attending === 'yes' ? '✨' : ''}</p>
-      `;
-      container.insertBefore(card, container.firstChild);
-    }
-
-    alert(`Thank you ${name}! Your RSVP has been recorded.`);
-    document.getElementById('rsvpForm').reset();
-  }
-
-  // ══ Petals Animation ══
-  function startPetals() {
-    function spawn() {
-      const p = document.createElement('div'); p.className = 'petal';
-      p.style.left = Math.random()*100+'vw';
-      p.style.animationDuration = (10+Math.random()*10)+'s';
-      p.style.animationDelay = (Math.random()*5)+'s';
-      document.body.appendChild(p);
-      setTimeout(() => p.remove(), 25000);
-    }
-    for(let i=0;i<12;i++) setTimeout(spawn, i*500);
-    setInterval(spawn, 4000);
-  }
-
-  // ══ Scroll Observer ══
-  function initObserver() {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-        }
+    setTimeout(() => {
+      document.querySelectorAll('.fade-in').forEach((el, i) => {
+        setTimeout(() => el.classList.add('visible'), i * 150);
       });
-    }, { threshold: 0.1 });
-
-    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    }, 500);
   }
 
-  // Close lightbox with Escape key
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') closeLightbox();
-  });
-
-  
-
-  // ══ VERSION CHECK - Force Reload if Cached ══
-  const CURRENT_VERSION = '2';
-  const savedVersion = localStorage.getItem('inviteVersion');
-  if (savedVersion !== CURRENT_VERSION) {
-    localStorage.setItem('inviteVersion', CURRENT_VERSION);
-    if (savedVersion) { // Only reload if was previously set (not first visit)
-      window.location.reload(true);
-    }
-  }
-
-  // ══ COVER COUNTDOWN ══
+  // ══ COUNTDOWN ══
   (function() {
     const WEDDING_DATE = new Date('2026-06-14T16:00:00');
 
-    function updateCoverCountdown() {
+    function updateCountdown() {
       const daysEl = document.getElementById('cover-cd-days');
       const hoursEl = document.getElementById('cover-cd-hours');
       const minsEl = document.getElementById('cover-cd-min');
       const secsEl = document.getElementById('cover-cd-sec');
 
-      // Exit if elements not found (safety check)
       if (!daysEl || !hoursEl || !minsEl || !secsEl) return;
 
-      const now = new Date();
-      const diff = WEDDING_DATE - now;
+      const diff = WEDDING_DATE - new Date();
 
       if (diff <= 0) {
         daysEl.textContent = '00';
@@ -878,19 +370,10 @@
       secsEl.textContent = String(seconds).padStart(2, '0');
     }
 
-    // Run when DOM is ready
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', function() {
-        updateCoverCountdown();
-        setInterval(updateCoverCountdown, 1000);
-      });
-    } else {
-      // DOM already loaded
-      updateCoverCountdown();
-      setInterval(updateCoverCountdown, 1000);
-    }
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
   })();
-
 </script>
+
 </body>
 </html>
