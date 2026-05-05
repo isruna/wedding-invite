@@ -228,6 +228,18 @@
     @media (max-width: 600px) {
       .turut-mengundang-grid { grid-template-columns: 1fr; gap: 0; }
     }
+    .tm-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      color: var(--gold);
+      margin-bottom: 15px;
+      font-style: italic;
+      text-align: center;
+    }
+    @media (max-width: 600px) {
+      .tm-title { margin-top: 20px; }
+      .tm-column:first-child .tm-title { margin-top: 0; }
+    }
     .tm-list {
       list-style: none; padding: 0; margin: 0;
     }
@@ -238,9 +250,6 @@
       font-size: 0.85rem; font-weight: 500;
     }
     .tm-list li:last-child { border-bottom: none; }
-    @media (max-width: 600px) {
-      .tm-column:first-child .tm-list li:last-child { border-bottom: 1px dashed var(--sage-light); }
-    }
 
     /* ══ EVENT DETAILS ══ */
     .event-section { background: var(--sage); color: var(--white); }
@@ -439,7 +448,7 @@
     <div class="couple-container">
       <div class="person fade-in">
         <div class="person-photo">
-          <img src="assets/groom.png" alt="Foto Iqbal">
+          <img src="assets/png" alt="Foto Iqbal">
         </div>
         <h3 class="person-name font-script">M Iqbal Raihan</h3>
         <p class="person-desc">Putra ke-1 dari Bapak Eman Sulaeman<br>& Ibu Yeni Heryani</p>
@@ -460,7 +469,9 @@
     <div class="turut-mengundang-box fade-in">
       <h3 class="section-title font-script text-sage" style="font-size: 2rem; margin-bottom: 25px;">Turut Mengundang</h3>
       <div class="turut-mengundang-grid">
+        <!-- Kolom Kiri -->
         <div class="tm-column">
+          <h4 class="tm-title">Keluarga Mempelai Wanita</h4>
           <ul class="tm-list">
             <li>1. Ustadz Tatang</li>
             <li>2. Bp. Yasin (Ketua RW 10)</li>
@@ -470,7 +481,9 @@
             <li>6. Kel. Besar Bp. Endang Rosadi (Alm.)</li>
           </ul>
         </div>
+        <!-- Kolom Kanan -->
         <div class="tm-column">
+          <h4 class="tm-title">Keluarga Mempelai Pria</h4>
           <ul class="tm-list">
             <li>1. KH. M Izzuddin</li>
             <li>2. Ustd. M. Endin Tazudin</li>
@@ -545,7 +558,7 @@
 
     <!-- Tampilan Ucapan (Dynamic Dummies) -->
     <div class="wishes-container fade-in" id="wishesContainer">
-      <!-- Dummy wishes di-inject oleh javascript -->
+      <!-- Daftar ucapan dimuat via JavaScript -->
     </div>
   </section>
 
@@ -558,15 +571,9 @@
     <div class="fade-in">
       <div class="bank-card">
         <div class="bank-name">BCA</div>
-        <div class="bank-number">1234 5678 90</div>
-        <div class="bank-holder">a.n M Iqbal Raihan</div>
+        <div class="bank-number">1291207800</div>
+        <div class="bank-holder">a.n Mohamad Iqbal Raihan</div>
         <button class="map-btn" style="margin-top: 5px; padding: 8px 20px;" onclick="copyToClipboard('1234567890')">Salin Rekening</button>
-      </div>
-      <div class="bank-card">
-        <div class="bank-name">MANDIRI</div>
-        <div class="bank-number">0987 6543 21</div>
-        <div class="bank-holder">a.n Rina Herlina</div>
-        <button class="map-btn" style="margin-top: 5px; padding: 8px 20px;" onclick="copyToClipboard('0987654321')">Salin Rekening</button>
       </div>
     </div>
   </section>
@@ -712,7 +719,6 @@
     "Selamat menempuh ibadah terpanjang. Bahagia selalu ya!"
   ];
 
-  // Fungsi random berbasis seed (tanggal hari ini)
   function randomSeed(seed) {
     let x = Math.sin(seed++) * 10000;
     return x - Math.floor(x);
@@ -720,12 +726,10 @@
 
   function generateDailyWishes() {
     const container = document.getElementById('wishesContainer');
-    container.innerHTML = ''; // bersihkan
+    container.innerHTML = ''; 
 
-    // Gunakan tanggal hari ini sebagai seed (berganti tiap tengah malam)
     const todaySeed = Math.floor(Date.now() / (1000 * 60 * 60 * 24));
     
-    // Generate 3 pesan unik berdasarkan tanggal hari ini
     for (let i = 0; i < 3; i++) {
       let nameIndex = Math.floor(randomSeed(todaySeed + i) * dummyNames.length);
       let msgIndex = Math.floor(randomSeed(todaySeed + i + 10) * dummyMessages.length);
@@ -740,7 +744,6 @@
     }
   }
 
-  // Panggil fungsi untuk membuat wish dummy
   generateDailyWishes();
 
   // ══ RSVP SUBMIT (Visual Only) ══
@@ -758,7 +761,6 @@
         <span class="wish-name">${name} <span class="wish-meta" style="color:var(--sage)">Baru Saja</span></span>
         <p class="wish-text">${message}</p>
       `;
-      // Tambahkan ke urutan paling atas
       container.insertBefore(card, container.firstChild);
     }
 
