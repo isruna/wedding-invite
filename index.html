@@ -186,7 +186,6 @@
     }
     .person { text-align: center; }
     
-    /* Uploaded Photo Styling */
     .person-photo {
       width: 150px; height: 150px;
       border-radius: 50%;
@@ -321,8 +320,10 @@
     .wish-card {
       background: var(--white); padding: 15px; border-radius: 8px;
       margin-bottom: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      animation: coverUp 0.5s ease both;
     }
     .wish-name { font-weight: 600; color: var(--sage-dark); font-size: 0.9rem; display: block; }
+    .wish-meta { font-size: 0.7rem; color: #888; font-weight: 400; margin-left: 5px;}
     .wish-text { font-size: 0.85rem; color: var(--text); margin-top: 5px; }
 
     /* ══ GIFT ══ */
@@ -386,7 +387,6 @@
   <div class="cover-couple font-script">Iqbal & Rina</div>
   <div class="cover-date">Minggu, 14 Juni 2026</div>
   
-  <!-- Cover Countdown -->
   <div class="cover-countdown-wrapper">
     <div class="cover-cd-item"><span id="cover-cd-hari">00</span>Hari</div>
     <div class="cover-cd-item"><span id="cover-cd-jam">00</span>Jam</div>
@@ -410,7 +410,6 @@
 <!-- ══ MAIN INVITATION ══ -->
 <div id="invitation">
 
-  <!-- Hero Section -->
   <section class="page hero-photo">
     <div class="fade-in">
       <p class="hero-date">Pernikahan Kami</p>
@@ -418,7 +417,6 @@
     </div>
   </section>
 
-  <!-- Quote Section -->
   <section class="page quote-section">
     <div class="fade-in">
       <p class="bismillah font-serif">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيم</p>
@@ -429,7 +427,6 @@
     </div>
   </section>
 
-  <!-- Couple Info & Turut Mengundang -->
   <section class="page couple-section">
     <div class="fade-in">
       <h3 class="section-title font-script text-sage">Mempelai</h3>
@@ -442,7 +439,6 @@
     <div class="couple-container">
       <div class="person fade-in">
         <div class="person-photo">
-          <!-- Local Photo for Groom -->
           <img src="assets/groom.png" alt="Foto Iqbal">
         </div>
         <h3 class="person-name font-script">M Iqbal Raihan</h3>
@@ -453,7 +449,6 @@
       
       <div class="person fade-in">
         <div class="person-photo">
-          <!-- Local Photo for Bride -->
           <img src="assets/bride.png" alt="Foto Rina">
         </div>
         <h3 class="person-name font-script">Rina Herlina</h3>
@@ -465,7 +460,6 @@
     <div class="turut-mengundang-box fade-in">
       <h3 class="section-title font-script text-sage" style="font-size: 2rem; margin-bottom: 25px;">Turut Mengundang</h3>
       <div class="turut-mengundang-grid">
-        <!-- Kolom Kiri -->
         <div class="tm-column">
           <ul class="tm-list">
             <li>1. Ustadz Tatang</li>
@@ -476,7 +470,6 @@
             <li>6. Kel. Besar Bp. Endang Rosadi (Alm.)</li>
           </ul>
         </div>
-        <!-- Kolom Kanan -->
         <div class="tm-column">
           <ul class="tm-list">
             <li>1. KH. M Izzuddin</li>
@@ -506,8 +499,7 @@
       <p class="event-detail-item" style="margin-bottom: 5px;"><strong>GOR Balai Desa Cisalada</strong></p>
       <p class="event-detail-item">Kec. Cigombong, Kab. Bogor</p>
       
-      <!-- Lattitude and Longitude mapped directly -->
-      <a href="https://maps.google.com/?q=-6.733734341957357,106.78974428180437" target="_blank" class="map-btn">Lihat Peta Lokasi</a>
+      <a href="https://www.google.com/maps?q=-6.733734341957357,106.78974428180437" target="_blank" class="map-btn">Lihat Peta Lokasi</a>
     </div>
 
     <div class="countdown-wrapper fade-in">
@@ -545,15 +537,15 @@
         </div>
         <div class="form-group">
           <label>Ucapan & Doa</label>
-          <textarea id="rsvpMessage" class="form-control" placeholder="Tuliskan harapan dan doa untuk mempelai..."></textarea>
+          <textarea id="rsvpMessage" class="form-control" required placeholder="Tuliskan harapan dan doa untuk mempelai..."></textarea>
         </div>
         <button type="submit" class="submit-btn">Kirim RSVP</button>
       </form>
     </div>
 
-    <!-- Tampilan Ucapan -->
+    <!-- Tampilan Ucapan (Dynamic Dummies) -->
     <div class="wishes-container fade-in" id="wishesContainer">
-      <!-- Daftar ucapan akan muncul di sini setelah form di submit -->
+      <!-- Dummy wishes di-inject oleh javascript -->
     </div>
   </section>
 
@@ -705,20 +697,68 @@
     });
   }
 
-  // ══ RSVP SUBMIT ══
+  // ══ DYNAMIC DAILY DUMMY WISHES ══
+  const dummyNames = [
+    "Budi & Keluarga", "Siska P.", "Kel. Bpk. Andi", "Rahmat Hidayat", 
+    "Dina & Suami", "Tante Sarah", "Om Dedi", "Reza", "Ayu Lestari", "Kel. Bpk. Herman"
+  ];
+  const dummyMessages = [
+    "Selamat menempuh hidup baru Iqbal dan Rina. Semoga samawa!",
+    "Happy wedding! Semoga lancar sampai hari H yaa.. bahagia selalu kalian berdua! ✨",
+    "Barakallahulakum wa baraka 'alaikum. Selamat ya Rina & Iqbal.",
+    "Selamat berbahagia! Maaf belum bisa hadir, doa terbaik untuk kalian.",
+    "Semoga menjadi keluarga yang sakinah, mawaddah, warahmah. Amin.",
+    "Lancar-lancar ya persiapannya sampai hari H! Gak sabar nunggu acaranya.",
+    "Selamat menempuh ibadah terpanjang. Bahagia selalu ya!"
+  ];
+
+  // Fungsi random berbasis seed (tanggal hari ini)
+  function randomSeed(seed) {
+    let x = Math.sin(seed++) * 10000;
+    return x - Math.floor(x);
+  }
+
+  function generateDailyWishes() {
+    const container = document.getElementById('wishesContainer');
+    container.innerHTML = ''; // bersihkan
+
+    // Gunakan tanggal hari ini sebagai seed (berganti tiap tengah malam)
+    const todaySeed = Math.floor(Date.now() / (1000 * 60 * 60 * 24));
+    
+    // Generate 3 pesan unik berdasarkan tanggal hari ini
+    for (let i = 0; i < 3; i++) {
+      let nameIndex = Math.floor(randomSeed(todaySeed + i) * dummyNames.length);
+      let msgIndex = Math.floor(randomSeed(todaySeed + i + 10) * dummyMessages.length);
+      
+      let card = document.createElement('div');
+      card.className = 'wish-card';
+      card.innerHTML = `
+        <span class="wish-name">${dummyNames[nameIndex]} <span class="wish-meta">Hadir</span></span>
+        <p class="wish-text">${dummyMessages[msgIndex]}</p>
+      `;
+      container.appendChild(card);
+    }
+  }
+
+  // Panggil fungsi untuk membuat wish dummy
+  generateDailyWishes();
+
+  // ══ RSVP SUBMIT (Visual Only) ══
   function submitRSVP(e) {
     e.preventDefault();
     const name = document.getElementById('rsvpName').value;
     const message = document.getElementById('rsvpMessage').value;
+    const attending = document.getElementById('rsvpAttending').value;
 
     if (message.trim() !== '') {
       const container = document.getElementById('wishesContainer');
       const card = document.createElement('div');
-      card.className = 'wish-card fade-in visible';
+      card.className = 'wish-card';
       card.innerHTML = `
-        <span class="wish-name">${name} <small style="color:var(--sage)">(Baru saja)</small></span>
+        <span class="wish-name">${name} <span class="wish-meta" style="color:var(--sage)">Baru Saja</span></span>
         <p class="wish-text">${message}</p>
       `;
+      // Tambahkan ke urutan paling atas
       container.insertBefore(card, container.firstChild);
     }
 
