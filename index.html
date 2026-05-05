@@ -7,6 +7,16 @@
   <meta http-equiv="Pragma" content="no-cache"/>
   <meta http-equiv="Expires" content="0"/>
   <title>Undangan Pernikahan — Iqbal & Rina</title>
+  <script>
+  // Change this version number every time you make a big update!
+  const currentVersion = '1.1'; 
+  
+  if (localStorage.getItem('siteVersion') !== currentVersion) {
+    localStorage.setItem('siteVersion', currentVersion);
+    // Force the browser to fetch the newest version from the server
+    window.location.href = window.location.pathname + '?v=' + currentVersion + window.location.search.replace('?', '&');
+  }
+</script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Great+Vibes&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
