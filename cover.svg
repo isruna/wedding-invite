@@ -1,0 +1,112 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1e3d6e"/>
+      <stop offset="55%" stop-color="#2a5298"/>
+      <stop offset="100%" stop-color="#1e3d6e"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="40%" r="55%">
+      <stop offset="0%" stop-color="#a8cdf5" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#1e3d6e" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+
+  <!-- Outer border -->
+  <rect x="28" y="28" width="1144" height="574" fill="none" stroke="#a8cdf5" stroke-width="1" stroke-opacity="0.3"/>
+  <rect x="44" y="44" width="1112" height="542" fill="none" stroke="#a8cdf5" stroke-width="0.5" stroke-opacity="0.15"/>
+
+  <!-- Corner florals TL -->
+  <g opacity="0.4">
+    <path d="M60 60 Q130 60 130 130 Q130 60 200 60" stroke="#a8cdf5" stroke-width="1.2" fill="none"/>
+    <path d="M60 60 Q60 130 130 130 Q60 130 60 200" stroke="#a8cdf5" stroke-width="1.2" fill="none"/>
+    <path d="M130 130 Q170 80 230 55" stroke="#a8cdf5" stroke-width="1" fill="none"/>
+    <path d="M130 130 Q80 170 55 230" stroke="#a8cdf5" stroke-width="1" fill="none"/>
+    <ellipse cx="225" cy="58" rx="14" ry="6" fill="#a8cdf5" opacity="0.5" transform="rotate(-35 225 58)"/>
+    <ellipse cx="195" cy="72" rx="12" ry="5" fill="#cce5ff" opacity="0.4" transform="rotate(-55 195 72)"/>
+    <circle cx="232" cy="52" r="7" fill="#e8f4ff" stroke="#4a90d9" stroke-width="1"/>
+    <circle cx="232" cy="52" r="3" fill="#4a90d9" opacity="0.6"/>
+    <ellipse cx="58" cy="225" rx="6" ry="14" fill="#a8cdf5" opacity="0.5" transform="rotate(-35 58 225)"/>
+    <circle cx="52" cy="232" r="7" fill="#e8f4ff" stroke="#4a90d9" stroke-width="1"/>
+    <circle cx="52" cy="232" r="3" fill="#4a90d9" opacity="0.6"/>
+  </g>
+  <!-- TR -->
+  <g transform="scale(-1,1) translate(-1200,0)" opacity="0.4">
+    <path d="M60 60 Q130 60 130 130 Q130 60 200 60" stroke="#a8cdf5" stroke-width="1.2" fill="none"/>
+    <path d="M60 60 Q60 130 130 130 Q60 130 60 200" stroke="#a8cdf5" stroke-width="1.2" fill="none"/>
+    <path d="M130 130 Q170 80 230 55" stroke="#a8cdf5" stroke-width="1" fill="none"/>
+    <path d="M130 130 Q80 170 55 230" stroke="#a8cdf5" stroke-width="1" fill="none"/>
+    <ellipse cx="225" cy="58" rx="14" ry="6" fill="#a8cdf5" opacity="0.5" transform="rotate(-35 225 58)"/>
+    <circle cx="232" cy="52" r="7" fill="#e8f4ff" stroke="#4a90d9" stroke-width="1"/>
+    <circle cx="232" cy="52" r="3" fill="#4a90d9" opacity="0.6"/>
+    <ellipse cx="58" cy="225" rx="6" ry="14" fill="#a8cdf5" opacity="0.5" transform="rotate(-35 58 225)"/>
+    <circle cx="52" cy="232" r="7" fill="#e8f4ff" stroke="#4a90d9" stroke-width="1"/>
+    <circle cx="52" cy="232" r="3" fill="#4a90d9" opacity="0.6"/>
+  </g>
+  <!-- BL -->
+  <g transform="scale(1,-1) translate(0,-630)" opacity="0.4">
+    <path d="M60 60 Q130 60 130 130 Q130 60 200 60" stroke="#a8cdf5" stroke-width="1.2" fill="none"/>
+    <path d="M60 60 Q60 130 130 130 Q60 130 60 200" stroke="#a8cdf5" stroke-width="1.2" fill="none"/>
+    <path d="M130 130 Q170 80 230 55" stroke="#a8cdf5" stroke-width="1" fill="none"/>
+    <ellipse cx="225" cy="58" rx="14" ry="6" fill="#a8cdf5" opacity="0.5" transform="rotate(-35 225 58)"/>
+    <circle cx="232" cy="52" r="7" fill="#e8f4ff" stroke="#4a90d9" stroke-width="1"/>
+    <circle cx="232" cy="52" r="3" fill="#4a90d9" opacity="0.6"/>
+    <ellipse cx="58" cy="225" rx="6" ry="14" fill="#a8cdf5" opacity="0.5" transform="rotate(-35 58 225)"/>
+    <circle cx="52" cy="232" r="7" fill="#e8f4ff" stroke="#4a90d9" stroke-width="1"/>
+    <circle cx="52" cy="232" r="3" fill="#4a90d9" opacity="0.6"/>
+  </g>
+  <!-- BR -->
+  <g transform="scale(-1,-1) translate(-1200,-630)" opacity="0.4">
+    <path d="M60 60 Q130 60 130 130 Q130 60 200 60" stroke="#a8cdf5" stroke-width="1.2" fill="none"/>
+    <path d="M60 60 Q60 130 130 130 Q60 130 60 200" stroke="#a8cdf5" stroke-width="1.2" fill="none"/>
+    <path d="M130 130 Q170 80 230 55" stroke="#a8cdf5" stroke-width="1" fill="none"/>
+    <ellipse cx="225" cy="58" rx="14" ry="6" fill="#a8cdf5" opacity="0.5" transform="rotate(-35 225 58)"/>
+    <circle cx="232" cy="52" r="7" fill="#e8f4ff" stroke="#4a90d9" stroke-width="1"/>
+    <circle cx="232" cy="52" r="3" fill="#4a90d9" opacity="0.6"/>
+    <ellipse cx="58" cy="225" rx="6" ry="14" fill="#a8cdf5" opacity="0.5" transform="rotate(-35 58 225)"/>
+    <circle cx="52" cy="232" r="7" fill="#e8f4ff" stroke="#4a90d9" stroke-width="1"/>
+    <circle cx="52" cy="232" r="3" fill="#4a90d9" opacity="0.6"/>
+  </g>
+
+  <!-- Center floral divider top -->
+  <g transform="translate(600,170)">
+    <line x1="-180" y1="0" x2="-30" y2="0" stroke="#a8cdf5" stroke-width="0.8" opacity="0.6"/>
+    <ellipse cx="-18" cy="0" rx="10" ry="5" fill="#cce5ff" opacity="0.6" transform="rotate(-30 -18 0)"/>
+    <circle cx="0" cy="0" r="10" fill="#1e3d6e" stroke="#a8cdf5" stroke-width="1"/>
+    <circle cx="0" cy="0" r="4" fill="#a8cdf5" opacity="0.8"/>
+    <ellipse cx="0" cy="-14" rx="4" ry="7" fill="#a8cdf5" opacity="0.6"/>
+    <ellipse cx="0" cy="14" rx="4" ry="7" fill="#a8cdf5" opacity="0.6"/>
+    <ellipse cx="-14" cy="0" rx="7" ry="4" fill="#a8cdf5" opacity="0.6"/>
+    <ellipse cx="14" cy="0" rx="7" ry="4" fill="#a8cdf5" opacity="0.6"/>
+    <ellipse cx="18" cy="0" rx="10" ry="5" fill="#cce5ff" opacity="0.6" transform="rotate(30 18 0)"/>
+    <line x1="30" y1="0" x2="180" y2="0" stroke="#a8cdf5" stroke-width="0.8" opacity="0.6"/>
+  </g>
+
+  <!-- "The Wedding of" label -->
+  <text x="600" y="225" text-anchor="middle" font-family="Georgia, serif" font-size="22" fill="#a8cdf5" opacity="0.85" letter-spacing="8">THE WEDDING OF</text>
+
+  <!-- Couple names -->
+  <text x="600" y="330" text-anchor="middle" font-family="Georgia, serif" font-size="78" fill="#e8f4ff" font-style="italic" font-weight="300">M. Iqbal Raihan</text>
+  <text x="600" y="395" text-anchor="middle" font-family="Georgia, serif" font-size="52" fill="#a8cdf5" font-style="italic">&amp;</text>
+  <text x="600" y="460" text-anchor="middle" font-family="Georgia, serif" font-size="78" fill="#e8f4ff" font-style="italic" font-weight="300">Rina Herlina</text>
+
+  <!-- Bottom floral divider -->
+  <g transform="translate(600,495)">
+    <line x1="-180" y1="0" x2="-30" y2="0" stroke="#a8cdf5" stroke-width="0.8" opacity="0.6"/>
+    <ellipse cx="-18" cy="0" rx="10" ry="5" fill="#cce5ff" opacity="0.6" transform="rotate(-30 -18 0)"/>
+    <circle cx="0" cy="0" r="10" fill="#1e3d6e" stroke="#a8cdf5" stroke-width="1"/>
+    <circle cx="0" cy="0" r="4" fill="#a8cdf5" opacity="0.8"/>
+    <ellipse cx="0" cy="-14" rx="4" ry="7" fill="#a8cdf5" opacity="0.6"/>
+    <ellipse cx="0" cy="14" rx="4" ry="7" fill="#a8cdf5" opacity="0.6"/>
+    <ellipse cx="-14" cy="0" rx="7" ry="4" fill="#a8cdf5" opacity="0.6"/>
+    <ellipse cx="14" cy="0" rx="7" ry="4" fill="#a8cdf5" opacity="0.6"/>
+    <ellipse cx="18" cy="0" rx="10" ry="5" fill="#cce5ff" opacity="0.6" transform="rotate(30 18 0)"/>
+    <line x1="30" y1="0" x2="180" y2="0" stroke="#a8cdf5" stroke-width="0.8" opacity="0.6"/>
+  </g>
+
+  <!-- Date -->
+  <text x="600" y="555" text-anchor="middle" font-family="Georgia, serif" font-size="24" fill="#a8cdf5" letter-spacing="5" opacity="0.9">Minggu, 14 Juni 2026</text>
+</svg>
